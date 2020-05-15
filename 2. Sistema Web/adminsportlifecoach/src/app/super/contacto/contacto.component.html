@@ -1,0 +1,217 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Contacto</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <form>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Direccion" [value]="contacto.direccion" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Ciudad" [value]="contacto.ciudad" disabled>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Telefono" type="text" [value]="contacto.telefono"
+                                            disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Email" type="email" [value]="contacto.email"
+                                            disabled>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h4>Redes sociales - <i class="fab fa-facebook-square"></i> - <i
+                                    class="fab fa-instagram"></i> - <i class="fab fa-twitter"></i></h4>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Facebook" type="text" [value]="contacto.facebook"
+                                            disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Instagram" type="text" [value]="contacto.instagram"
+                                            disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Twiter" type="text" [value]="contacto.twitter"
+                                            disabled>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <br>
+
+                            <p class="card-text"><a href="#" class="btn btn-primary pull-right" data-toggle="modal"
+                                    data-target="#dataModal"><i class="fas fa-edit"></i> Editar</a></p>
+
+
+                            <div class="clearfix"></div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span><i class="fas fa-edit"></i> Actualizar Contacto</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form-entrenamiento" (ngSubmit)="updateContacto()" #form="ngForm">
+                <div class="modal-body">
+
+                    <div class="example-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Ciudad" type="text" name="ciudad"
+                                        [(ngModel)]="contacto.ciudad" #city="ngModel" required maxlength="50" #input>
+                                    <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+                                    <!--MSJ ERROR DIRECCION-->
+                                    <mat-error *ngIf="city.errors && (city.dirty || city.touched)">
+                                        <span *ngIf="city.errors.required">Este campo no puede estar vacío</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Direccion" type="text" name="direccion"
+                                        [(ngModel)]="contacto.direccion" #direc="ngModel" required maxlength="100"
+                                        #input1>
+                                    <mat-hint align="end">{{input1.value?.length || 0}}/100</mat-hint>
+                                    <!--MSJ ERROR DIRECCION-->
+                                    <mat-error *ngIf="direc.errors && (direc.dirty || direc.touched)">
+                                        <span *ngIf="direc.errors.required">Este campo no puede estar vacío</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Email" type="email" name="email"
+                                        [(ngModel)]="contacto.email" #email="ngModel" required email>
+                                    <!--MSJ ERROR EMAIL-->
+                                    <mat-error *ngIf="email.errors && (email.dirty || email.touched)">
+                                        <span *ngIf="email.errors.required">Este campo no puede estar vacío</span>
+                                        <span *ngIf="email.errors.email">Ingrese un email válido</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Telefono" type="text" name="telefono"
+                                        [(ngModel)]="contacto.telefono" #telf="ngModel" required pattern="[0-9]{10}">
+                                    <!--MSJ ERROR TELEFONO-->
+                                    <mat-error *ngIf="telf.errors && (telf.dirty || telf.touched)">
+                                        <span *ngIf="telf.errors.required">Este campo no puede estar vacío</span>
+                                        <span *ngIf="telf.errors.pattern">Un número de teléfono válido debe tener 10
+                                            digitos</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <mat-form-field>
+                                    <input matInput placeholder="Facebook" type="text" name="facebook"
+                                        [(ngModel)]="contacto.facebook" #fb="ngModel" required maxlength="15" #input2>
+                                    <mat-hint align="end">{{input2.value?.length || 0}}/15</mat-hint>
+                                    <!--MSJ ERROR FB-->
+                                    <mat-error *ngIf="fb.errors && (fb.dirty || fb.touched)">
+                                        <span *ngIf="fb.errors.required">Este campo no puede estar vacío</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field>
+                                    <input matInput placeholder="Instagram" type="text" name="instagram"
+                                        [(ngModel)]="contacto.instagram" #inst="ngModel" required maxlength="15"
+                                        #input3>
+                                    <mat-hint align="end">{{input3.value?.length || 0}}/15</mat-hint>
+                                    <!--MSJ ERROR INSTAGRAM-->
+                                    <mat-error *ngIf="inst.errors && (inst.dirty || inst.touched)">
+                                        <span *ngIf="inst.errors.required">Este campo no puede estar vacío</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field>
+                                    <input matInput placeholder="Twitter" type="text" name="twitter"
+                                        [(ngModel)]="contacto.twitter" #twt="ngModel" maxlength="15" required #input4>
+                                    <mat-hint align="end">{{input4.value?.length || 0}}/15</mat-hint>
+                                    <!--MSJ ERROR TWITTER-->
+                                    <mat-error *ngIf="twt.errors && (twt.dirty || twt.touched)">
+                                        <span *ngIf="twt.errors.required">Este campo no puede estar vacío</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Actualizar</button>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="shade">
+    <ion-menu-button slot="start" color="light" autoHide="false"></ion-menu-button>
+    <ion-title text-center class="title">Recetas</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" text=""></ion-back-button>
+    </ion-buttons>
+    <!--<a slot="end" routerLink="/news">
+      <ion-icon color="light" name="notifications-outline"></ion-icon>
+    </a>-->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+
+
+
+
+    <ion-list *ngFor="let item of tiposDieta">
+
+
+        <ion-card>
+            <ion-card-header class="item-titulo">
+              <ion-card-subtitle  class="item-subtitulo">{{item.nombre | uppercase}}</ion-card-subtitle>
+             
+            </ion-card-header>
+  
+            <ion-card-content>
+                <ion-slides [options]="sliderConfig">
+                    <ion-slide *ngFor="let dieta of item.dietas" (click)="viewItem(dieta)" >
+                      <ion-card>
+                        <ion-card-header>
+                            <ion-card-subtitle class="ion-padding-bottom" color="dark">{{dieta.titulo | uppercase}}</ion-card-subtitle>
+                            <ion-card-content no-padding>
+                                <img class="imgs" [src]="dieta.imagen" />
+                                <!--<img class="imgs" src="https://www.todosacomer.net/wp-content/uploads/2017/09/ensaladaquinoa1.jpg" />-->
+                            </ion-card-content>
+                        </ion-card-header>
+                      </ion-card>
+                    </ion-slide>
+                </ion-slides>
+            </ion-card-content>
+              
+        </ion-card>
+
+        
+
+       
+
+    </ion-list>
+ 
+
+
+
+
+</ion-content>

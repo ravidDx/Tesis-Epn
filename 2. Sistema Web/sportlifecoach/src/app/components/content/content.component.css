@@ -1,0 +1,34 @@
+.bg-img{
+    filter: brightness(0.5);
+}
+
+.service-icon {
+    line-height: 123px;
+}
+
+.service-icon i {
+    font-size: 56px;
+}
+
+.caption-content > span {
+    margin-left: 140px;
+    margin-right: 140px;
+}
+
+/*
+.bg-img-1 {
+    background-image: var(slider1);
+    filter: brightness(0.5);
+}
+.bg-img-2 {
+    background-image: url(../../../assets/img/slider/affinity.jpeg);
+    
+}
+.bg-img-3 {
+    background-image: url(../../../assets/img/slider/cinelli.jpeg);
+    filter: brightness(0.5);
+}
+*/
+
+
+

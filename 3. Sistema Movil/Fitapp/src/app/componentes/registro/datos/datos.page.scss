@@ -1,0 +1,39 @@
+ion-content{
+    --ion-background-color:black;
+}
+ion-icon{
+    font-size: 25px;
+    color: white;
+}
+h4{
+    color: white;
+    font-size: 25px;
+}
+.font{
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.login-box {
+    padding: 10px ;
+    margin: 15px;
+    background-color:rgba(22, 22, 22, 0.877);
+    border-radius: 17px 17px 17px 17px;
+    //opacity: 0.3;
+    //filter: alpha(opacity=60);
+}
+ion-footer{
+    background-color: black;
+}
+
+ion-button{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.dato{
+    margin-right: 121px;
+}
+
+.dato1{
+    margin-right: 130px;
+}

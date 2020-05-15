@@ -1,0 +1,146 @@
+<ion-header >
+    <ion-toolbar color="shade">
+        <ion-menu-button slot="start" color="light" autoHide="false"></ion-menu-button>
+        <ion-title text-center class="title">Entrenamientos</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button color="light" text=""></ion-back-button>
+        </ion-buttons>
+        <!--<a slot="end" routerLink="/news">
+            <ion-icon color="light" name="notifications-outline"></ion-icon>
+        </a>-->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+
+        <ion-slides pager="true" [options]="slideOpts" class='sliderMain'>
+            <ion-slide *ngFor="let item of planEntrenamiento['planEntren'];let i = index" >
+
+                    <ion-card>
+                            <ion-card-header class='card-head'>
+                                    <ion-grid style="padding: 0px;">
+                                            <ion-row>
+                                                <ion-col size="8" text-left>
+                                                    
+                                                    <span class='span1'>{{item['semana']}}</span>
+                                                    <span class='span2' >{{item['dia']}}</span>
+
+                                                </ion-col>
+                                  
+
+                                               <ion-col size="4">
+
+                                                    <ion-icon *ngIf="item['terminado'] == true" name="star" style="color: darkorange;" ></ion-icon>
+                                                    <span *ngIf="item['terminado'] == true" class="span3">completado</span>
+                                                   
+                                                    <ion-icon *ngIf="item['terminado'] == false" name="star-outline"  style="color: darkorange;"></ion-icon>
+                                                   
+                                                   
+                                                </ion-col>
+                                            </ion-row>
+                                    </ion-grid>
+                            </ion-card-header>
+                          
+                            <ion-card-content>
+                                               
+                    
+                                    
+                                        <ion-list class="scroll">
+                                            <ion-list-header style="font-family: cursive;">
+                                                Hoy vamos a realizar la siguiente rutina
+                                            </ion-list-header> 
+                                           
+                                            <ion-item *ngFor="let item2 of planEntrenamiento['planEntren'][i]['ejercicios']; let j = index"  (click)="viewEjercicio(item2)" >
+                                                <ion-avatar slot="start">
+                                                <img [src]="item2['ejercicio']['imagen']">
+                                                </ion-avatar>
+                                                <ion-label>
+                                                <h2>{{item2['ejercicio']['titulo']}}</h2>
+                                                <p class="p1">{{item2['series']}} series</p>
+                                                <p class="p1">{{item2['repeticiones']}} repeticiones</p>
+                                                </ion-label>
+                                            </ion-item>
+    
+          
+    
+                                        </ion-list>
+
+                                        <div>
+                                                <ion-col>
+                                                        <ion-button color="warning" *ngIf="item['terminado'] == false"  (click)="editarProgreso(item)" >Entrenamiento realizado</ion-button>
+                                                </ion-col>
+                            
+                                        </div>
+                                 
+    
+               
+                            </ion-card-content>
+                    </ion-card>
+
+                
+ 
+            </ion-slide>
+
+             
+        </ion-slides>
+
+
+
+       
+
+    <!--
+    <ion-card *ngFor="let item of planEntrenamiento.rutinas;let i = index" color="light" class="ion-margin ion-padding"  > 
+        <ion-card-header color="dark" (click)="viewItem(item)">
+          <ion-card-subtitle>{{item.rutina.titulo | uppercase}}</ion-card-subtitle>
+          <ion-card-title>Rutina {{i +1 }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item-group *ngFor="let item of planEntrenamiento.rutinas; let i = index" >
+                <ion-chip color="warning">
+                    <ion-icon name="md-sunny" ></ion-icon>
+                    <ion-label >{{item.dias}}</ion-label>
+                </ion-chip>
+                <ion-chip color="success">
+                    <ion-icon name="md-calendar" ></ion-icon>
+                    <ion-label >{{item.semanas}}</ion-label>
+                </ion-chip>
+
+                <ion-item-divider>
+                    <ion-label>EJERCICIOS</ion-label>
+                </ion-item-divider>
+
+                <ion-item *ngFor="let item2 of item.rutina.ejercicios; let j = index">
+                    <ion-chip class="ion-padding-end ion-margin-end" color="secondary">
+                        <ion-note color="light">{{j+1}}</ion-note>
+                    </ion-chip>
+                    <ion-text color="light">{{item2.ejercicio.titulo}}</ion-text>
+                </ion-item>
+                
+                <!--<ion-item >
+                    <ion-chip class="ion-padding-end ion-margin-end" color="secondary">
+                        <ion-note color="light">{{j+1}}</ion-note>
+                    </ion-chip>
+                    <ion-note class="ion-padding-bottom" color="light">{{item2.ejercicio.titulo}}</ion-note>
+                <ion-item>-->
+
+               <!--
+        
+            </ion-item-group>
+
+            
+            <ion-col>
+                <ion-button *ngIf="btn===false" [color]='color' (click)="editarProgreso()">{{text}}</ion-button>
+                <ion-button *ngIf="btn===true" [color]='color' (click)="nolisto()" disabled>{{text}}</ion-button>
+            </ion-col>
+
+
+        </ion-card-content>
+
+     
+    </ion-card>
+   -->
+    
+
+  
+
+</ion-content>

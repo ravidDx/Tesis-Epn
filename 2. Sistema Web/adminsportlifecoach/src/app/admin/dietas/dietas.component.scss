@@ -1,0 +1,89 @@
+
+.add-item{
+    margin-top: -19px;
+    padding-top: 0px;
+}
+
+.btn-add{
+    margin-bottom: 10px;
+}
+
+
+.btn-add button{
+    margin-right: 14px;
+  }
+  
+  
+
+.btn-ico{
+    padding-left: 5px;
+    min-width: 10px;
+    max-width: 26px
+}
+
+
+.img-contenedor img {
+    -webkit-transition:all .9s ease; /* Safari y Chrome */
+    -moz-transition:all .9s ease; /* Firefox */
+    -o-transition:all .9s ease; /* IE 9 */
+    -ms-transition:all .9s ease; /* Opera */
+    width:100%;
+    height: 20em;
+}
+
+.img-contenedor:hover img {
+    -webkit-transform:scale(1.25);
+    -moz-transform:scale(1.25);
+    -ms-transform:scale(1.25);
+    -o-transform:scale(1.25);
+    transform:scale(1.25);
+}
+
+.img-contenedor,.img-contenedor2,.img-contenedor3 {/*Ancho y altura son modificables al requerimiento de cada uno*/
+    //width:300px;
+    //height:180px;
+    overflow:hidden;
+}
+
+.spnaBadge{
+    margin-right: 15px;
+}
+
+
+.load{
+    width: 15px;
+    display: none;
+  }
+
+
+  .cardTitle{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.btns{
+    margin-bottom: 45px;
+}
+
+
+.card-img-small{
+    width: 2em;
+    min-width: 6em;
+  }
+
+  .card-img-modal{
+    height: 250px;
+    width: 250px;
+  }
+
+.card-instruccion{
+  padding-top: 58px; 
+}
+
+
+.file_p{
+    margin-bottom: 0px;
+    margin-top: -15px;
+    padding: 0px;
+  }
+  

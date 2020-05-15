@@ -1,0 +1,64 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title "> <i class="fas fa-arrow-left" routerLink="/admin/ejercicios"></i> Ejercicio 
+                       </h4>
+                        
+                    </div>
+                    <div class="card-body">
+                            
+                      
+                        <div class="row row-1 animated fadeInRight">
+                            
+                            <div class="card card1" >
+                                    <h5 class="card-header cardhead"><strong>{{entrenamiento.titulo | uppercase}}</strong></h5>
+                             
+                                    <div class="card-body">
+                                        
+                                        <p style="margin-bottom: 0px;"><strong>Beneficios:</strong></p>
+                                        <p class="card-text">{{entrenamiento.objetivo}}</p>
+                                    
+                                        <p class="card-text" style="margin-bottom: 0px;"> <strong>Tipo de ejercicio: </strong> {{entrenamiento.tipo}} </p>
+                                        <p class="card-text" style="margin-bottom: 0px;"> <strong>Nivel de dificultad: </strong> {{entrenamiento.dificultad}} </p>
+                                
+        
+                                    </div>
+                            </div>
+                                      
+                        </div>
+
+                        <hr>
+
+                        <div class="row row-1 animated fadeInRight">
+                              <div class="col-sm-6" style="text-align: -webkit-center;">
+                                  <div class="card" >
+                                      
+                                        <app-preload [url]="entrenamiento.imagen"></app-preload>
+                                    <!--
+                                      <img class="card-img-top text-center" [src]="entrenamiento.imagen" alt="Card image cap" >                           
+                                    -->
+                                    </div>
+                              </div>
+                              <div class="col-sm-6">
+
+                                <br>
+                                <br>
+                 
+                                <h5 class="card-header cardhead"><strong>Pasos de ejecucion</strong></h5>
+                                <br>
+                                <p *ngFor="let item of entrenamiento.instruccion; let i = index"  ><span class="">{{item.id}}. </span> {{item.value}}</p>     
+                                   
+                                </div>
+                         
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+     
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title "><i class="fas fa-arrow-left" routerLink="/admin/entrenamientos"></i>  Entrenamiento</h4>
+                        </div>
+                        <div class="card-body">
+                          
+                          
+                          <div class="row animated fadeInRight">
+                            
+                              <div class="col-sm-6">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title"><span style="font-family: cursive;">{{nombre}} {{apellido}}</span></h5>
+                                    <p class="card-text"><span style="font-family: cursive;">Objetivo: </span> {{objetivo}}</p>
+                              
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title" style="font-family: cursive;">Ejercicios completados</h5>
+                                    <p> <span class="spanPorcen">{{planEntrenamiento.progreso}} %</span> <progress max="100" value="{{planEntrenamiento.progreso}}"> </progress> </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                   
+                            <hr>
+                            <div class="row">
+                              <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let item of listSemanas; let i=index" (click)="viewRutina(item)" data-toggle="modal"
+                              data-target="#dataModalEjer">
+                                  <div class="card card-stats">
+                                      <div class="card-header card-header-{{color[i]}} card-header-icon">
+                                          <div class="card-icon">
+                                              <i class="material-icons">today</i>
+                                              <small>{{item.semana | uppercase}}</small>
+                                          </div>
+                                          <p class="card-category">{{item.rutina}}</p>
+                                          <!--<h3 class="card-title">49/50
+                                              <small>EJERCICIOS</small>
+                                          </h3>-->
+                                      </div>
+                                      <!--<div class="card-footer">
+                                          <div class="stats">
+                                              <i class="material-icons text-danger">directions_run</i>
+                                              <a >Dificultad</a>
+                                          </div>
+                                      </div>-->
+                                  </div>
+                              </div>
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+                   
+         
+            </div>
+                 
+      </div>
+</div>
+
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModalEjer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <span ><i class="fas fa-running"></i>&nbsp;Lista de Ejercicios</span>
+    
+        </h5>
+
+      </div>
+      <br>
+      <ul class="navega">
+          DIas de entrenamiento:
+          <li *ngFor="let item of dias; let i=index" >{{item}}</li>   
+      </ul>
+
+
+      <table class="table">
+        <thead>
+          <tr>
+              <th scope="col">Num.</th>
+            <th scope="col">Ejercicio</th>
+            <th scope="col">#Series</th>
+            <th scope="col">#Repeticiones</th>
+            <th scope="col">Descanso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data; let i=index" >
+              <th scope="row" >{{i+1}}</th>
+            <th scope="row" >{{item['ejercicio']['titulo']}}</th>
+            <td>{{item['series']}}</td>
+            <td>{{item['repeticiones']}}</td>
+            <td>{{item['descanso']}}</td>
+          </tr>
+       
+        </tbody>
+      </table>
+
+
+     
+    </div>
+  </div>
+</div>

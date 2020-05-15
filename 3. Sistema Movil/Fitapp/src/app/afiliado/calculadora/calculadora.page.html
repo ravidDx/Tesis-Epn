@@ -1,0 +1,524 @@
+<ion-header class="fondo">
+    <ion-toolbar >
+      <ion-menu-button slot="start" color="light" autoHide="false"></ion-menu-button>
+      <ion-title text-center class="title">Calculadora</ion-title>
+      <ion-buttons slot="start">
+      </ion-buttons>
+      <!--<a slot="end" routerLink="/news">
+        <ion-icon  class="siz" color="light" name="notifications-outline"></ion-icon>
+    </a>-->
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="fondo" >
+  
+    <ion-segment scrollable  class='background1' color="warning" [(ngModel)]="section">
+      <ion-segment-button  value="imc" #fimc >
+        <ion-label>IMC</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="peso_ideal" #pideal >
+          <ion-label>PESO IDEAL </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="calord" #calord>
+          <ion-label>CALORIAS DIARIAS</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="quemadas" #quemad>
+          <ion-label>CALORIAS QUEMADAS</ion-label>
+        </ion-segment-button>
+  
+    </ion-segment>
+  
+    <div [ngSwitch]="section">
+      <form *ngSwitchCase="'imc'"  [formGroup]="imc_form" (ngSubmit)="calcularIMC()">
+        <!--<ion-text>
+          <ion-label>INDICE DE MASA CORPORAL </ion-label>
+        </ion-text>-->
+        <div class="pasos">
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>1</ion-label>
+              </ion-chip>
+              <ion-label>Eres</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-margin-end gender">
+              <ion-segment formControlName="gender" name="gender" > <!--value={{usuario.genero}}-->
+                <ion-segment-button text-center class="gend" value="hombre" checked>
+                  <ion-icon name="man"></ion-icon>
+                </ion-segment-button>
+                <ion-segment-button text-center class="gend" value="mujer">
+                  <ion-icon name="woman"></ion-icon>
+                </ion-segment-button>
+              </ion-segment>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>1</ion-label>
+              </ion-chip>
+              <ion-label>Cuanto mides</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centrar">
+              <ion-item color="login" class="font">
+                <ion-input type="text" formControlName="heigth" placeholder="160" ></ion-input> <!--[ngModel]="usuario.altura"-->
+                <ion-note class="mag">cm</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.heigth">
+                  <span class="error-message" *ngIf="imc_form.get('heigth').hasError(validation.type)
+                                 && (imc_form.get('heigth').dirty || imc_form.get('heigth').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>2</ion-label>
+              </ion-chip>
+              <ion-label>Cuanto pesas</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centrar">
+              <ion-item color="login" class="font">
+                <ion-input type="text" formControlName="weigth"  placeholder="58" >
+                </ion-input>
+                <ion-note class="mag">Kg</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.weigth">
+                  <span class="error-message" *ngIf="imc_form.get('weigth').hasError(validation.type)
+                                 && (imc_form.get('weigth').dirty || imc_form.get('weigth').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ion-button type="submit" [disabled]="!imc_form.valid"
+          class="ion-margin-start ion-padding-start ion-margin-end ion-padding-end" size="large" color="success"
+          shape="round" expand="block" fill="solid">CALCULAR</ion-button>
+        <div *ngIf="gimcm" class="pasos">
+          <ion-item>
+            <ion-label>Tu IMC personal : {{imc | number:'1.1-1' }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Tu peso actual : {{weigth | number:'1.1-1' }}</ion-label>
+          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" text-center class="y">
+                BAJO
+              </ion-col>
+              <ion-col size="3" text-center class="v">
+                NORMAL
+              </ion-col>
+              <ion-col size="3" text-center class="to">
+                SOBREPESO
+              </ion-col>
+              <ion-col size="3" text-center class="r">
+                OBESIDAD
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="3" text-center>
+                0.0 - 19.0
+              </ion-col>
+              <ion-col size="3" text-center>
+                19.1 - 24.0
+              </ion-col>
+              <ion-col size="3" text-center>
+                24.1 - 29.0
+              </ion-col>
+              <ion-col size="3" text-center>
+                29.1 - 39.0+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="3" text-center class="y"> </ion-col>
+              <ion-col size="3" text-center class="v"></ion-col>
+              <ion-col size="3" text-center class="to"> </ion-col>
+              <ion-col size="3" text-center class="r"></ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div *ngIf="gimch" class="pasos">
+          <ion-item>
+            <ion-label>Tu IMC personal : {{imc | number:'1.1-1' }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Tu peso actual : {{weigth | number:'1.1-1' }}</ion-label>
+          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" text-center class="y">
+                BAJO
+              </ion-col>
+              <ion-col size="3" text-center class="v">
+                NORMAL
+              </ion-col>
+              <ion-col size="3" text-center class="to">
+                SOBREPESO
+              </ion-col>
+              <ion-col size="3" text-center class="r">
+                OBESIDAD
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="3" text-center>
+                0.0 - 20.0
+              </ion-col>
+              <ion-col size="3" text-center>
+                20.1 - 25.0
+              </ion-col>
+              <ion-col size="3" text-center>
+                25.1 - 30.0
+              </ion-col>
+              <ion-col size="3" text-center>
+                30.1 - 40.0+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="3" text-center class="y"> </ion-col>
+              <ion-col size="3" text-center class="v"></ion-col>
+              <ion-col size="3" text-center class="to"> </ion-col>
+              <ion-col size="3" text-center class="r"></ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </form>
+  
+      <form *ngSwitchCase="'peso_ideal'" [formGroup]="peso_form" (ngSubmit)="pesoIdeal(); gpi=true">
+        <!--<ion-text>
+          <ion-label>PESO IDEAL</ion-label>
+        </ion-text>-->
+        <div class="pasos">
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>1</ion-label>
+              </ion-chip>
+              <ion-label>Eres</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-margin-end gender">
+              <ion-segment formControlName="gender" name="gender" >
+                <ion-segment-button text-center class="gend" value="hombre" checked>
+                  <ion-icon name="man"></ion-icon>
+                </ion-segment-button>
+                <ion-segment-button text-center class="gend" value="mujer">
+                  <ion-icon name="woman"></ion-icon>
+                </ion-segment-button>
+              </ion-segment>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>2</ion-label>
+              </ion-chip>
+              <ion-label>Cuanto mides</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centrar">
+              <ion-item color="login" class="font">
+                <ion-input type="text" formControlName="heigth" name="heigth" placeholder="155"
+                 ></ion-input>
+                <ion-note class="mag">cm</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.heigth">
+                  <span class="error-message" *ngIf="peso_form.get('heigth').hasError(validation.type)
+                                 && (peso_form.get('heigth').dirty || peso_form.get('heigth').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ion-button type="submit" [disabled]="!peso_form.valid"
+          class="ion-margin-start ion-padding-start ion-margin-end ion-padding-end" size="large" color="success"
+          shape="round" expand="block" fill="solid">CALCULAR</ion-button>
+        <div *ngIf="gpi" class="pasos ">
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/pesoideal.png">
+            </ion-thumbnail>
+            <ion-label>Tú peso ideal : {{p_ideal | number:'1.1-1' }}</ion-label>
+          </ion-item>
+        </div>
+      </form>
+  
+      <form *ngSwitchCase="'calord'" [formGroup]="caldi_form" (ngSubmit)="caloriasD(); caldi=true">
+        <div class="pasos">
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>1</ion-label>
+              </ion-chip>
+              <ion-label>Eres</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-margin-end gender">
+              <ion-segment formControlName="gender" name="gender" >
+                <ion-segment-button text-center class="gend" value="hombre" checked>
+                  <ion-icon name="man"></ion-icon>
+                </ion-segment-button>
+                <ion-segment-button text-center class="gend" value="mujer">
+                  <ion-icon name="woman"></ion-icon>
+                </ion-segment-button>
+              </ion-segment>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>2</ion-label>
+              </ion-chip>
+              <ion-label>Cuantos años tienes</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centrar">
+              <ion-item color="login" class="font">
+                <ion-input type="text" formControlName="age" name="age" placeholder="23" ></ion-input>
+                <ion-note class="mag">años</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.age">
+                  <span class="error-message" *ngIf="caldi_form.get('age').hasError(validation.type)
+                                   && (caldi_form.get('age').dirty || caldi_form.get('age').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>3</ion-label>
+              </ion-chip>
+              <ion-label>Cuanto mides</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>4</ion-label>
+              </ion-chip>
+              <ion-label>Cuanto pesas</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-margin-start ">
+              <ion-item color="login">
+                <ion-input text-center type="text" formControlName="heigth" name="heigth" placeholder="155"
+                  ></ion-input>
+                <ion-note class="mag">cm</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.heigth">
+                  <span class="error-message" *ngIf="caldi_form.get('heigth').hasError(validation.type)
+                                   && (caldi_form.get('heigth').dirty || caldi_form.get('heigth').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col class="ion-margin-start ion-margin-end">
+              <ion-item color="login">
+                <ion-input text-center type="text" formControlName="weigth" name="weigth" placeholder="58"
+                  ></ion-input>
+                <ion-note class="mag">Kg</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.weigth">
+                  <span class="error-message" *ngIf="caldi_form.get('weigth').hasError(validation.type)
+                                   && (caldi_form.get('weigth').dirty || caldi_form.get('weigth').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>5</ion-label>
+              </ion-chip>
+              <ion-label>Como de activo eres</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-item>
+                <ion-label>Actividad</ion-label>
+                <ion-select formControlName="active" okText="Aceptar" cancelText="Cancel">
+                  <ion-select-option value="1.2">Poco o ningún ejercicio</ion-select-option>
+                  <ion-select-option value="1.375">Ejercicio ligero</ion-select-option>
+                  <ion-select-option value="1.55">Ejercicio Moderado</ion-select-option>
+                  <ion-select-option value="1.72">Deportista</ion-select-option>
+                  <ion-select-option value="1.9">Atleta</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ion-button type="submit" [disabled]="!caldi_form.valid"
+          class="ion-margin-start ion-padding-start ion-margin-end ion-padding-end" size="large" color="success"
+          shape="round" expand="block" fill="solid">CALCULAR</ion-button>
+        <div *ngIf="caldi" class="pasos ">
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/kcalnec.png">
+            </ion-thumbnail>
+            <ion-text>Necesita : {{calorias | number:'1.1-1' }} kilo calorías diarias
+              para mantener el peso</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/kcalper.jpg">
+            </ion-thumbnail>
+            <ion-text>{{calorias-500 | number:'1.1-1' }} kilo calorías al día hay que consumir
+              para bajar de peso 0.5kg a la semana</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/kcal.png">
+            </ion-thumbnail>
+            <ion-text>Necesita : {{calorias+500 | number:'1.1-1' }} kilo calorías diarias
+              para ganar 0.5kg a la semana</ion-text>
+          </ion-item>
+        </div>
+      </form>
+  
+      <form *ngSwitchCase="'quemadas'" [formGroup]="calquem_form" (ngSubmit)="calQuemadas(); calquem=true">
+        <div class="pasos">
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>1</ion-label>
+              </ion-chip>
+              <ion-label>Actividad</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-margin-end gender ion-no-padding-bottom">
+              <ion-item>
+                <ion-select formControlName="met" okText="Aceptar" cancelText="Cancel">
+                  <ion-select-option value="8">Aerobic</ion-select-option>
+                  <ion-select-option value="7">Baloncesto</ion-select-option>
+                  <ion-select-option value="6.5">Caminata (ritmo acelerado)</ion-select-option>
+                  <ion-select-option value="3">Caminata (en bajada)</ion-select-option>
+                  <ion-select-option value="8">Caminata (en subida)</ion-select-option>
+                  <ion-select-option value="2.5">Caminata (plano horizontal)</ion-select-option>
+                  <ion-select-option value="14">Ciclismo Vigoroso</ion-select-option>
+                  <ion-select-option value="7.5">Ciclismo Moderado</ion-select-option>
+                  <ion-select-option value="8">Bailar</ion-select-option>
+                  <ion-select-option value="7">Futbol</ion-select-option>
+                  <ion-select-option value="5">Nadar</ion-select-option>
+                  <ion-select-option value="8">Trotar (lento)</ion-select-option>
+                  <ion-select-option value="9">Trotar (lento-leve)</ion-select-option>
+                  <ion-select-option value="10">Trotar (moderado)</ion-select-option>
+                  <ion-select-option value="11">Trotar (rápido)</ion-select-option>
+                  <ion-select-option value="11.5">Trotar (muy rápido)</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>2</ion-label>
+              </ion-chip>
+              <ion-label>Cuanto pesas</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centrar">
+              <ion-item color="login">
+                <ion-input text-center formControlName="weigth" type="text" placeholder="58" >
+                </ion-input>
+                <ion-note class="mag">Kg</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.weigth">
+                  <span class="error-message" *ngIf="calquem_form.get('weigth').hasError(validation.type)
+                                   && (calquem_form.get('weigth').dirty || calquem_form.get('weigth').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip color="warning">
+                <ion-label>3</ion-label>
+              </ion-chip>
+              <ion-label>Duracion de la actividad</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centrar">
+              <ion-item color="login">
+                <ion-input text-center formControlName="time" type="text" placeholder="30"></ion-input>
+                <ion-note class="mag">min</ion-note>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.time">
+                  <span class="error-message" *ngIf="calquem_form.get('time').hasError(validation.type)
+                                   && (calquem_form.get('time').dirty || calquem_form.get('time').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ion-button type="submit" [disabled]="!calquem_form.valid"
+          class="ion-margin-start ion-padding-start ion-margin-end ion-padding-end" size="large" color="success"
+          shape="round" expand="block" fill="solid">CALCULAR</ion-button>
+        <div *ngIf="calquem" class="pasos ">
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/1min.png">
+            </ion-thumbnail>
+            <ion-text>Por cada minuto quemarás {{quemadas | number:'1.2-2' }} kcal.</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/time.png">
+            </ion-thumbnail>
+            <ion-text>En {{time}} min quemarás {{quemadas*time | number:'1.2-2' }} kcal.</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="assets/icon/1hora.png">
+            </ion-thumbnail>
+            <ion-text>Si continuas la actividad durante 1 hora quemarás {{quemadas*60 | number:'1.2-2' }} kcal.</ion-text>
+          </ion-item>
+        </div>
+      </form>
+    </div>
+  </ion-content>

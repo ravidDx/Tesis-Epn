@@ -1,0 +1,439 @@
+<main class="site-content" role="main">
+
+  <!--
+      Home Slider
+      ==================================== -->
+
+  <section id="home-slider">
+    <div id="slider" class="sl-slider-wrapper">
+
+      <div class="sl-slider">
+
+        <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25"
+          data-slice1-scale="2" data-slice2-scale="2">
+
+          <div class="bg-img bg-img-1" [ngStyle]="applySlider1()"></div>
+
+          <div class="slide-caption">
+            <div class="caption-content">
+              
+              <h2 class="animated fadeInDown">{{sliderList[0]['titulo']}}</h2>
+              <span class="animated fadeInDown">{{sliderList[0]['detalle']}}</span>
+              
+              <a target="_blank" href="https://raviddx.github.io/adminsportlifecoach/" class="btn btn-blue btn-effect">Iniciar Sesión </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15"
+          data-slice1-scale="1.5" data-slice2-scale="1.5">
+
+          <div class="bg-img bg-img-2" [ngStyle]="applySlider2()"></div>
+          <div class="slide-caption">
+            <div class="caption-content">
+              
+              <h2>{{sliderList[1]['titulo']}}</h2>
+              <span>{{sliderList[1]['detalle']}}</span>
+            
+              <a target="_blank" href="https://raviddx.github.io/adminsportlifecoach/" class="btn btn-blue btn-effect">Iniciar Sesión </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3"
+          data-slice1-scale="2" data-slice2-scale="1">
+
+          <div class="bg-img bg-img-3" [ngStyle]="applySlider3()"></div>
+          <div class="slide-caption">
+            <div class="caption-content">
+              
+              <h2>{{sliderList[2]['titulo']}}</h2>
+              <span>{{sliderList[2]['detalle']}}</span>
+              
+              <a target="_blank" href="https://raviddx.github.io/adminsportlifecoach/" class="btn btn-blue btn-effect">Iniciar Sesión </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div><!-- /sl-slider -->
+
+
+      <nav id="nav-arrows" class="nav-arrows hidden-xs hidden-sm visible-md visible-lg">
+        <a href="javascript:;" class="sl-prev">
+          <i class="fa fa-angle-left fa-3x"></i>
+        </a>
+        <a href="javascript:;" class="sl-next">
+          <i class="fa fa-angle-right fa-3x"></i>
+        </a>
+      </nav>
+
+
+      <nav id="nav-dots" class="nav-dots visible-xs visible-sm hidden-md hidden-lg">
+        <span class="nav-dot-current"></span>
+        <span></span>
+        <span></span>
+      </nav>
+
+    </div><!-- /slider-wrapper -->
+  </section>
+
+  <!--
+      End Home SliderEnd
+      ==================================== -->
+
+  <!-- about section -->
+  <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="sec-title text-center white wow animated fadeInDown">
+          <h2>ACERCA DE</h2>
+        </div>
+        <div id="about" class=" wow animated fadeInUp">
+          <div class="testimonial-item text-center">
+            <img [src]="about.imagen" alt="Entrenador de LSC">
+            <div class="clearfix">
+              <span>{{about.nombre}}</span>
+              <p>{{about.experiencia}}</p>
+              <p>{{about.servicios}}</p>
+            </div>
+          </div>
+        </div>
+        <!--<div class="col-md-4 wow animated fadeInLeft">
+            <div class="recent-works">
+              <h3>♥♥ Posts ♥♥</h3>
+              <div id="works" >
+
+                <div class="work-item" >
+                  <p>{{noticias[0]}}</p>
+                </div>
+                <div class="work-item">
+                  <p>{{noticias[1]}}</p>
+                </div>
+                <div class="work-item">
+                  <p>{{noticias[2]}}</p>
+                </div>
+              </div>
+            </div>
+          </div>-->
+        <!--<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
+            <div class="welcome-block text-center">
+              <h3>♥♥ WELCOME ♥♥</h3>					
+                  <div class="message-body">
+                <img [src]="about.imagen" class="pull-left" alt="member">
+                      <p>{{about.nombre}}</p>
+                     <p>{{about.experiencia}}</p>
+                     <p>{{about.servicios}}</p>
+                  </div>
+                   <a href="#" class="btn btn-border btn-effect pull-right">Read More</a>
+              </div>
+          </div>-->
+      </div>
+    </div>
+  </section>
+  <!-- end about section -->
+
+
+  <!-- Service section -->
+  <section id="service">
+    <div class="container">
+      <div class="row">
+
+        <div class="sec-title text-center">
+          <h2 class="wow animated bounceInLeft">Servicios</h2>
+          <p class="wow animated bounceInRight">{{servicioSubt}}</p>
+        </div>
+
+        <div *ngFor="let item of serviciosList; let i=index">
+          <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" [attr.data-wow-delay]='item.delay'>
+            <div class="service-item">
+              <div class="service-icon">
+                <i class="material-icons">{{item.icon}}</i>
+              </div>
+              <h3>{{item.titulo}}</h3>
+              <p>{{item.detalle}}</p>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </section>
+  <!-- end Service section -->
+
+  <!-- portfolio section -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="row">
+
+        <div class="sec-title text-center wow animated fadeInDown">
+          <h2>PORTAFOLIO</h2>
+          <p>{{portafolioSub}}</p>
+        </div>
+
+
+        <ul class="project-wrapper wow animated fadeInUp">
+          <li class="portfolio-item">
+            <img [src]="portafolioList[0].imagen" class="img-responsive" [alt]="portafolioList[0].detalle">
+            <figcaption class="mask">
+              <h3>{{portafolioList[0].titulo}}</h3>
+              <p>{{portafolioList[0].subtitulo}}</p>
+            </figcaption>
+            <ul class="external">
+              <li><a class="fancybox" title="The Fit Challenge 2019" [href]="portafolioList[0].imagen"
+                  data-fancybox-group="works"><i class="fa fa-search"></i></a></li>
+              <li><a href=""><i class="fa fa-link"></i></a></li>
+            </ul>
+          </li>
+
+          <li class="portfolio-item">
+            <img [src]="portafolioList[1].imagen" class="img-responsive" [alt]="portafolioList[1].detalle">
+            <figcaption class="mask">
+              <h3>{{portafolioList[1].titulo}}</h3>
+              <p>{{portafolioList[1].subtitulo}}</p>
+            </figcaption>
+            <ul class="external">
+              <li><a class="fancybox" title="Entrenamiento Grupal" [href]="portafolioList[1].imagen"
+                  data-fancybox-group="works"><i class="fa fa-search"></i></a></li>
+              <li><a href=""><i class="fa fa-link"></i></a></li>
+            </ul>
+          </li>
+
+          <li class="portfolio-item">
+            <img [src]="portafolioList[2].imagen" class="img-responsive" [alt]="portafolioList[2].detalle">
+            <figcaption class="mask">
+              <h3>{{portafolioList[2].titulo}}</h3>
+              <p>{{portafolioList[2].subtitulo}}</p>
+            </figcaption>
+            <ul class="external">
+              <li><a class="fancybox" title="Reto Fitt 2019" data-fancybox-group="works"
+                  [href]="portafolioList[2].imagen"><i class="fa fa-search"></i></a></li>
+              <li><a href=""><i class="fa fa-link"></i></a></li>
+            </ul>
+          </li>
+
+          <li class="portfolio-item">
+            <img [src]="portafolioList[3].imagen" class="img-responsive" [alt]="portafolioList[3].detalle">
+            <figcaption class="mask">
+              <h3>{{portafolioList[3].titulo}}</h3>
+              <p>{{portafolioList[3].subtitulo}}</p>
+            </figcaption>
+            <ul class="external">
+              <li><a class="fancybox" title="Entrenamiento Personalizado" data-fancybox-group="works"
+                  [href]="portafolioList[3].imagen"><i class="fa fa-search"></i></a></li>
+              <li><a href=""><i class="fa fa-link"></i></a></li>
+            </ul>
+          </li>
+
+          <li class="portfolio-item">
+            <img [src]="portafolioList[4].imagen" class="img-responsive" [alt]="portafolioList[4].detalle">
+            <figcaption class="mask">
+              <h3>{{portafolioList[4].titulo}}</h3>
+              <p>{{portafolioList[4].subtitulo}}</p>
+            </figcaption>
+            <ul class="external">
+              <li><a class="fancybox" title="Reto de 30 dias" data-fancybox-group="works"
+                  [href]="portafolioList[4].imagen"><i class="fa fa-search"></i></a></li>
+              <li><a href=""><i class="fa fa-link"></i></a></li>
+            </ul>
+          </li>
+
+          <li class="portfolio-item">
+            <img [src]="portafolioList[5].imagen" class="img-responsive" [alt]="portafolioList[5].detalle">
+            <figcaption class="mask">
+              <h3>{{portafolioList[5].titulo}}</h3>
+              <p>{{portafolioList[5].subtitulo}}</p>
+            </figcaption>
+            <ul class="external">
+              <li><a class="fancybox" title="Preparador Fisico de LDU Femenino" data-fancybox-group="works"
+                  [href]="portafolioList[5].imagen"><i class="fa fa-search"></i></a></li>
+              <li><a href=""><i class="fa fa-link"></i></a></li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+  <!-- end portfolio section -->
+
+  <!-- Testimonial section -->
+  <section id="testimonials" class="parallax" [ngStyle]="applyParallax()">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+
+          <div class="sec-title text-center white wow animated fadeInDown">
+            <h2>ENCUENTRA NUESTRA APP AQUI</h2>
+          </div>
+
+          <div id="testimonial" class=" wow animated fadeInUp">
+            <div class="testimonial-item text-center">
+              <a target="_blank" href="https://drive.google.com/open?id=1yh-5v_lH6jcgCsqW1hqvImezWgOWYOAm">
+                <img src="assets/img/icon.png" alt="Icono de la app movil">
+              </a>
+              <div class="clearfix">
+                <span>Presiona en el ícono de Fit App y descárgala</span>
+                <p>Establece tus datos de condición física y mira tu progreso</p>
+                <p>Obtén rutinas de ejercicio y recetas personalizadas</p>
+                <p>Además realiza cálculos de IMc, peso ideal, calorías diarias y quemadas</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end Testimonial section -->
+
+  <!-- Price section -->
+  <!--<section id="price">
+      <div class="container">
+        <div class="row">
+        
+          <div class="sec-title text-center wow animated fadeInDown">
+            <h2>Price</h2>
+            <p>Our price for your company</p>
+          </div>
+          
+          <div class="col-md-4 wow animated fadeInUp">
+            <div class="price-table text-center">
+              <span>Silver</span>
+              <div class="value">
+                <span>$</span>
+                <span>24,35</span><br>
+                <span>month</span>
+              </div>
+              <ul>
+                <li>No Bonus Points</li>
+                <li>No Bonus Points</li>
+                <li>No Bonus Points</li>
+                <li>No Bonus Points</li>
+                <li><a href="#">sign up</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.4s">
+            <div class="price-table featured text-center">
+              <span>Gold</span>
+              <div class="value">
+                <span>$</span>
+                <span>50,00</span><br>
+                <span>month</span>
+              </div>
+              <ul>
+                <li>Free Trial</li>
+                <li>Free Trial</li>
+                <li>Free Trial</li>
+                <li>Free Trial</li>
+                <li><a href="#">sign up</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
+            <div class="price-table text-center">
+              <span>Diamond</span>
+              <div class="value">
+                <span>$</span>
+                <span>123,12</span><br>
+                <span>month</span>
+              </div>
+              <ul>
+                <li>All Bonus Points</li>
+                <li>All Bonus Points</li>
+                <li>All Bonus Points</li>
+                <li>All Bonus Points</li>
+                <li><a href="#">sign up</a></li>
+              </ul>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </section>-->
+  <!-- end Price section -->
+
+  <!-- Social section -->
+  <section id="social" class="parallax" [ngStyle]="applyParallax()">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+
+          <div class="sec-title text-center white wow animated fadeInDown">
+            <h2>SIGUENOS EN </h2>
+            <p>Nuestras Redes Sociales </p>
+          </div>
+
+          <ul class="social-button">
+            <li class="wow animated zoomIn"><a href="https://www.facebook.com/{{contacto.facebook}}" target="_blank"><i
+                  class="fa fa-facebook fa-2x"></i></a></li>
+            <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://twitter.com/{{contacto.instagram}}" target="_blank"><i
+                  class="fa fa-twitter fa-2x"></i></a></li>
+            <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.instagram.com/{{contacto.twitter}}" target="_blank"><i
+                  class="fa fa-instagram fa-2x"></i></a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end Social section -->
+
+  <!-- Contact section -->
+  <section id="contact"  >
+    <div class="container">
+      <div class="row">
+
+        <div class="sec-title text-center wow animated fadeInDown">
+          <h2>Contacto</h2>
+          <!--<p>Leave a Message</p>-->
+        </div>
+
+
+        <div class="col-md-6 contact-form ">
+          <address class="contact-details">
+            <p><i class="fa fa-pencil"></i>Live Sport Center.<span>{{contacto.direccion}}</span> 
+              <span>{{contacto.ciudad}}</span></p><br>
+          </address>
+          <!--<form action="#" method="post">
+              <div class="input-field">
+                <input type="text" name="name" class="form-control" placeholder="Your Name...">
+              </div>
+              <div class="input-field">
+                <input type="email" name="email" class="form-control" placeholder="Your Email...">
+              </div>
+              <div class="input-field">
+                <input type="text" name="subject" class="form-control" placeholder="Subject...">
+              </div>
+              <div class="input-field">
+                <textarea name="message" class="form-control" placeholder="Messages..."></textarea>
+              </div>
+                   <button type="submit" id="submit" class="btn btn-blue btn-effect">Send</button>
+            </form>-->
+        </div>
+
+        <div class="col-md-6 footer-social">
+          <address class="contact-details">
+            <p><i class="fa fa-phone"></i>Phone: {{contacto.telefono}} </p>
+            <p><i class="fa fa-envelope"></i>{{contacto.email}}</p>
+          </address>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- end Contact section -->
+
+  <!--<section id="google-map">
+    <div id="map-canvas" class="wow animated fadeInUp"></div>
+  </section>-->
+
+
+</main>

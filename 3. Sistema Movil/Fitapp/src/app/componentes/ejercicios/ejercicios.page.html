@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar color="shade">
+        <ion-menu-button slot="start" color="light" autoHide="false"></ion-menu-button>
+        <ion-title text-center class="title">Ejercicios</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button color="light" text=""></ion-back-button>
+        </ion-buttons>
+        <!--<a slot="end" routerLink="/news">
+            <ion-icon color="light" name="notifications-outline"></ion-icon>
+        </a>-->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+
+    <ion-segment scrollable class='background1' color="warning">
+
+        <!-- checked -->
+
+        <ion-segment-button *ngFor="let item of tiposEntrenamiento" (click)="getEjercicios_x_tipo(item.nombre)">
+            <ion-label class="font">{{item.nombre}}</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-list>
+            <!--<ion-list-header>
+              Recent Conversations
+            </ion-list-header>-->
+        
+            <ion-item  *ngFor="let item of ejercicios" (click)="viewItem(item)" > 
+              <ion-avatar slot="start">
+                <!--<img [src]="item.portada">-->
+                <img [src]=item.imagen>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{item.titulo}}</h2>
+                <!--<h3 color="light">{{item.duracion}}</h3>-->
+                <ion-note >{{item.objetivo}}</ion-note>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+    <!--<ion-card routerLink="/calculadora" class="ion-no-padding ion-margin-top">
+        <img class="imgc" src="../../../assets/video/app_centr.jpg" />
+        <div class="card-title ion-padding-start">CALCULADORA </div>
+        <div class="card-subtitle ion-padding-start">Algo extra</div>
+    </ion-card>
+    <ion-card routerLink="/ejertipos" class="ion-no-padding ion-margin-top">
+        <img class="imgc" src="../../../assets/video/unnamed.png" />
+        <div class="card-title ion-padding-start">ENTRENAMIENTOS</div>
+        <div class="card-subtitle ion-padding-start">Algo extra</div>
+    </ion-card>-->
+
+</ion-content>

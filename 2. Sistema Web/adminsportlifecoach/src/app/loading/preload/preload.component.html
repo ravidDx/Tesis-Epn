@@ -1,0 +1,13 @@
+<div class="content-image">
+    <!--animación que se muestra hasta que la imagen complete de cargar-->
+    <div class="thumb-overlay" [hidden]="viewImage">
+        <div class="sk-folding-cube">    
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </div>  
+    <!-- imagen que se mostrara al completar la carga -->
+    <img  #lImage alt="" [hidden]="!viewImage">
+</div>

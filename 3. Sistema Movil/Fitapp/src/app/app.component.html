@@ -1,0 +1,91 @@
+<div *ngIf="showSplash" class="splash">
+  <div class="spinner"></div>
+</div>
+<ion-app>
+  <ion-split-pane contentId="menu-content">
+    <ion-menu contentId="menu-content" type="overlay">
+      <ion-header padding class="menuleft">
+        
+        <ion-row *ngIf="rol == 'no afiliado'" >
+          <ion-col size="4" >
+                <a routerLink="/perfil">
+                  <ion-menu-toggle auto-hide="false">
+                      <ion-avatar >
+
+                          <img [src]=usuario.foto > 
+
+                      </ion-avatar>
+                  </ion-menu-toggle>
+                </a>  
+          </ion-col>
+          <ion-col padding routerLink="/perfil">
+            <ion-menu-toggle auto-hide="false">
+              <div class="nick">Nickname</div>
+              
+              <div class="user">{{usuario.nombre}}</div>
+              
+            </ion-menu-toggle>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row *ngIf="rol == 'Afiliado'" >
+            <ion-col size="4" >
+                  <a routerLink="/afiliado/perfil">
+                    <ion-menu-toggle auto-hide="false">
+                        <ion-avatar >
+  
+                            <img [src]=deportista.foto >
+                              
+                        </ion-avatar>
+                    </ion-menu-toggle>
+                  </a>  
+            </ion-col>
+            <ion-col padding >
+              <ion-menu-toggle auto-hide="false">
+                <div class="nick">Nickname {{profile}}</div>
+                
+                <div class="user">{{deportista.nombre}}  {{deportista.apellido}} </div>
+                
+              </ion-menu-toggle>
+            </ion-col>
+          </ion-row>
+      
+        
+      </ion-header>
+      <ion-content>
+
+
+          <!--<ion-list routerLink='/login' (click)="logout()">
+              <ion-menu-toggle auto-hide="false">
+                <ion-item  color="danger">
+                    Cerrar Sesión L
+                </ion-item>
+              </ion-menu-toggle>
+          </ion-list>-->
+        <ion-list *ngIf="provFb">
+            <ion-menu-toggle auto-hide="false"  (click)="logoutFB()">
+              <ion-item  color="danger">
+                  Cerrar Sesión
+              </ion-item>
+            </ion-menu-toggle>
+        </ion-list>
+        <ion-list *ngIf="provGp">
+          <ion-menu-toggle auto-hide="false"  (click)="logoutGP()">
+            <ion-item  color="danger">
+                Cerrar Sesión
+            </ion-item>
+          </ion-menu-toggle>
+      </ion-list>
+      <ion-list *ngIf="provFi">
+        <ion-menu-toggle auto-hide="false"  (click)="logout()">
+          <ion-item  color="danger">
+              Cerrar Sesión
+          </ion-item>
+        </ion-menu-toggle>
+    </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="menu-content" main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

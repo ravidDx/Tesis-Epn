@@ -1,0 +1,39 @@
+<ion-header >
+  <ion-toolbar color="shade">
+    <ion-title text-center class="title">Entrenamientos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+
+  <ion-segment scrollable  class='background1' color="warning">
+
+    <!-- checked -->
+
+    <ion-segment-button  *ngFor="let item of tiposEntrenamiento" (click)="getEjercicios_x_tipo(item.nombre)" >
+      <ion-label>{{item.nombre}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list>
+    <!--<ion-list-header>
+      Recent Conversations
+    </ion-list-header>-->
+
+    <ion-item  *ngFor="let item of ejercicios" (click)="viewItem(item)" > 
+      <ion-avatar slot="start">
+        <!--<img [src]="item.portada">-->
+        <img [src]=item.imagen>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{item.titulo}}</h2>
+        <!--<h3 >{{item.duracion}}</h3>-->
+        <ion-note>{{item.objetivo}}</ion-note>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

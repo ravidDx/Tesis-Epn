@@ -1,0 +1,178 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <div id='fotoAdmin'>
+                            <img class="img" [src]="deportista.foto" />
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title-1 card-color-1">{{deportista.nombre | uppercase}}
+                            {{deportista.apellido | uppercase}}</h3>
+                        <span class="card-description card-color-1">email</span>
+                        <p class="card-item"> {{deportista.email}} </p>
+
+                        <span class="card-description card-color-1">telefono</span>
+                        <p class="card-item"> {{deportista.telefono}} </p>
+
+                        <span class="card-description card-color-1">Fecha de Nacimiento</span>
+                        <p class="card-item"> {{deportista.fechaN | date }} </p>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="card-description card-color-1">Edad</span>
+                                <p class="card-item"> {{edad}} </p>
+                            </div>
+                            <div class="col-md-4">
+                                <span class="card-description card-color-1">Peso (kg)</span>
+                                <p class="card-item"> {{deportista.peso}} </p>
+                            </div>
+                            <div class="col-md-4">
+                                <span class="card-description card-color-1">Altura (cm)</span>
+                                <p class="card-item"> {{deportista.altura}} </p>
+                            </div>
+                        </div>
+
+                        <span class="card-description card-color-1">Objetivo</span>
+                        <p class="card-item"> {{deportista.objetivo }} </p>
+
+                        <span class="card-description card-color-1">Observaciones</span>
+                        <p class="card-item"> {{deportista.observaciones }} </p>
+
+
+
+                        <a routerLink="/admin/deportista-list" class="btn btn-primary btn-round" data-toggle="modal"
+                            ><i class="fas fa-arrow-left"></i> Atrás</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULARIO MODAL -->
+            <div class="modal fade" id="dataModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <span><i class="fas fa-running"></i> Evaluar Deportista</span>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="form-evaldeportista" (ngSubmit)="evaluar()" #form="ngForm">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!--<mat-slider class="example-margin" max="200" min="30" step="1" thumbLabel tickInterval="1">
+                                  </mat-slider>-->
+
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Peso (kg)" type="number" name="peso"
+                                                [(ngModel)]="deportista.peso" #weight="ngModel" required min="30"
+                                                max="200">
+                                            <!--MSJ ERROR PESO-->
+                                            <mat-error *ngIf="weight.errors && (weight.dirty || weight.touched)">
+                                                <span *ngIf="weight.errors.required">Campo no puede estar vacío</span>
+                                                <span *ngIf="weight.errors.min">Peso debe tener valores entre 30kg y
+                                                    200kg</span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Altura (cm)" type="number" name="altura"
+                                                [(ngModel)]="deportista.altura" #alt="ngModel" required min="130"
+                                                max="220">
+                                            <!--MSJ ERROR ALTURA-->
+                                            <mat-error *ngIf="alt.errors && (alt.dirty || alt.touched)">
+                                                <span *ngIf="alt.errors.required">Campo no puede estar vacío</span>
+                                                <span *ngIf="alt.errors.min || alt.errors.max">Peso debe tener valores
+                                                    entre 130cm y 220cm</span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row section-radio">
+                                    <div class="col-md-12">
+                                        <label id="radio-group-label">Genero (requerido)*</label>
+
+                                        <mat-radio-group [(ngModel)]="deportista.genero" name="genero">
+                                            <mat-radio-button class="radio-1" value="male" checked><i
+                                                    class="fas fa-male"></i></mat-radio-button>
+                                            <mat-radio-button value="female"><i class="fas fa-female"></i>
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary" [disabled]='form.invalid'>Guardar<div class="loader"></div></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Perfil</h4>
+                        <p class="card-category">Informacion personal</p>
+                    </div>
+                    <div class="card-body">
+
+
+                        <canvas id="myChart"></canvas>
+
+                        <br><br>
+
+                        <div class="row">
+                            <div class="col-md-3 col-niveles col-color-1">Por debajo del peso</div>
+                            <div class="col-md-3 col-niveles col-color-2">Peso normal</div>
+                            <div class="col-md-3 col-niveles col-color-3">Sobrepeso</div>
+                            <div class="col-md-3 col-niveles col-color-4">Obesidad</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 col-text">
+                                < 18.50</div> <div class="col-md-3 col-text">18.5 - 24.9
+                            </div>
+                            <div class="col-md-3 col-text">25 - 29.9</div>
+                            <div class="col-md-3 col-text">> 30</div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div *ngIf="posNivelPeso == 0" class="col-niveles-sub col-color-1"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div *ngIf="posNivelPeso == 1" class="col-niveles-sub col-color-2"></div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div *ngIf="posNivelPeso == 2" class="col-niveles-sub col-color-3"></div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div *ngIf="posNivelPeso == 3" class="col-niveles-sub col-color-4"></div>
+                            </div>
+                        </div>
+
+                        <!--*ngIf="posNivelPeso == 0"-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

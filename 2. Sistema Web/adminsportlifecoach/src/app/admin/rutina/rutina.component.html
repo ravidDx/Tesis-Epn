@@ -1,0 +1,65 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-primary">
+                      <h4 class="card-title "> <i class="fas fa-arrow-left" routerLink="/admin/rutinas"></i> Rutina</h4>
+
+                  </div>
+                  <div class="card-body">
+                    
+                      <div class="row row-1 animated fadeInRight">
+                      
+
+                            <div class="card card1" >
+                                    <h5 class="card-header cardhead"><strong>{{rutina.titulo | uppercase}}</strong></h5>
+                             
+                                    <div class="card-body">
+                                            <p style="margin-bottom: 0px;"><strong>Objetivo:</strong></p>
+                                            <p class="card-text">{{rutina.objetivo}}</p>
+              
+                                            <p class="card-text" style="margin-bottom: 0px;"> <strong>Duracion: </strong> {{rutina.duracion}} </p>
+                                            <p class="card-text" style="margin-bottom: 0px;"> <strong>Nivel de dificultad: </strong> {{rutina.dificultad}} </p>
+                                    </div>
+                            </div>
+
+                    
+                      </div>
+
+                      <hr>
+
+
+                      <div class="row row-1 animated fadeInRight" >
+                            <div class="col-sm-4" *ngFor="let item of rutina.ejercicios; let i = index" >
+                                <div class="card" >
+                                    <img class="card-img-top text-center" [src]="item.ejercicio.imagen" alt="Card image cap" [title]='item.ejercicio.titulo'>                           
+   
+                                            <!--
+                                    <img class="card-img-top text-center" [src]="entrenamiento.imagen" alt="Card image cap" >                           
+                                   <app-preload [url]="item.ejercicio.imagen"></app-preload>
+                           
+                                  -->
+                                  <p class="card-text" style="margin-bottom: 0px;"> <strong>Series: </strong> {{item.series}} </p>
+                                  <p class="card-text" style="margin-bottom: 0px;"> <strong>Repeticiones: </strong> {{item.repeticiones}}</p>
+                                  <p class="card-text" style="margin-bottom: 0px;"> <strong>Descanso: </strong> {{item.descanso}}</p>
+                         
+                               
+                                  </div>
+                            </div>
+                            <!--
+                            <div class="col-sm-6" >
+
+                                 
+                            </div>
+                          -->
+                      </div>
+
+                
+                  </div>
+              </div>
+          </div>
+   
+      </div>
+  </div>
+</div>

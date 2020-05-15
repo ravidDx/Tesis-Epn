@@ -1,0 +1,29 @@
+.iongrid{
+    font-family: monospace;
+    background-color: dimgrey;
+    color: white;
+}
+
+
+.fondo {
+    --ion-background-color: #0f0f0f;
+}
+
+.title{
+    font-size:15px;
+    color:white;
+    font-weight: bolder;
+}
+
+.contenedor{
+    background-color: rgba(22, 22, 22, 0.877);
+    font-size:15px;
+}
+
+.space {
+    padding-bottom:0px;
+}
+
+ion-card-content {
+    padding-top:10px;
+}

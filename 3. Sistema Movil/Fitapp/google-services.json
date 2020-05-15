@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "231674641543",
+    "firebase_url": "https://miapp-158221.firebaseio.com",
+    "project_id": "miapp-158221",
+    "storage_bucket": "miapp-158221.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231674641543:android:0b5098158eb9362ac68c22",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231674641543-2kvidnfkked4uh862hlns1qn02jjogpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.starter",
+            "certificate_hash": "d45f10eded153965eecc60dea0478685aee19494"
+          }
+        },
+        {
+          "client_id": "231674641543-hek1pi0mqerjv8b15j24ubldblh4iuug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMxtQxwT7gQEsshjmKTKgX35C0re17oUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231674641543-hek1pi0mqerjv8b15j24ubldblh4iuug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

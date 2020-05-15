@@ -1,0 +1,137 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-primary">
+                      <h4 class="card-title ">Portafolio</h4>
+                  </div>
+                  <div class="card-body">
+
+                      <div class="card mb-3" *ngFor="let element of portafolioList; let i=index">
+                          <div class="row no-gutters">
+                            <div class="col-md-4">
+                              <img [src]="element.imagen" class="card-img" alt="element.titulo {{i+1}}">
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <h5 class="card-title">{{element.titulo}}</h5>
+                                <h5 class="card-title">{{element.subtitulo}}</h5>
+                                <p class="card-text">{{element.detalle}}</p>
+                                 <hr>
+                                <p class="card-text"><a href="#" class="btn btn-primary" (click)="editModal(element)" data-toggle="modal" data-target="#dataModal"><i class="fas fa-edit"></i>  Editar</a></p>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+              
+                       
+                  </div>
+              </div>
+          </div>
+   
+      </div>
+  </div>
+</div>
+
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> 
+              <span><i class="fas fa-edit"></i> Actualizar Portafolio</span>
+          </h5> 
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="form-entrenamiento" (ngSubmit)="updatePortafolio()" #form="ngForm">
+            <div class="modal-body">
+
+                <div class="example-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>      
+                                <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="portafolio.titulo"
+                                #title="ngModel" required maxlength="50" #input>
+                                <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+                                 <!--MSJ ERROR TITULO-->
+                                 <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                                  <span *ngIf="title.errors.required">Este campo no puede estar vacío</span>
+                              </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Subtitulo" rows="3" name="subtitulo" [(ngModel)]="portafolio.subtitulo" #stitle="ngModel" required maxlength="256" #subt></textarea>
+                                <!--MSJ ERROR SUBTITULO-->
+                                <mat-hint align="end">{{subt.value?.length || 0}}/200</mat-hint>
+                                <mat-error *ngIf="stitle.errors && (stitle.dirty || stitle.touched)">
+                                  <span *ngIf="stitle.errors.required">Este campo no puede estar vacío</span>
+                              </mat-error>
+                              </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Detalle" rows="5" name="detalle" [(ngModel)]="portafolio.detalle"  #detail="ngModel" required maxlength="512" #det></textarea>
+                                <mat-hint align="end">{{det.value?.length || 0}}/512</mat-hint>
+                                <!--MSJ ERROR DETALLE-->
+                                <mat-error *ngIf="detail.errors && (detail.dirty || detail.touched)">
+                                  <span *ngIf="detail.errors.required">Este campo no puede estar vacío</span>
+                              </mat-error>
+                              </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+                      <div class="col-md-12" style="text-align: center;">
+        
+                      
+                          <img [src]="portafolio.imagen" class="card-img-modal" style="width: 175px" />
+        
+                          
+                        <br/>
+        
+                        <button mat-button color="warn" (click)="onClick()" type="button" >
+                          <mat-icon>file_upload</mat-icon>
+                          Actualizar imagen (.jpg o .png)
+                          <p class='file_p' >tamaño máx. (1MB)</p>  
+                        </button>
+        
+        
+        
+                        <input type="file" id="fileUpload" name="fileUpload" multiple="multiple"
+                          accept="{{accept}}" style="display:none;" (change)="onSelectFile($event)"  />
+                       
+        
+                      </div>
+        
+                  </div>
+
+     
+                </div>
+
+            </div>
+            
+            <div class="modal-footer">
+                
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid" [disabled]='btnUpdate' >Actualizar</button>
+              
+ 
+            </div>
+        </form>
+      </div>
+    </div>
+</div> 

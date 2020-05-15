@@ -1,0 +1,366 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">Listado de Recetas</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="row animated fadeInRight btn-add">
+              <button mat-raised-button class="btn btn-info ml-auto" (click)="newModal()" data-toggle="modal"
+                data-target="#dataModal">
+                <i class="fas fa-plus-circle"></i> Añadir
+              </button>
+              <!--
+                            <button mat-raised-button class="btn btn-info ml-auto" (click)="getDownload()" data-toggle="modal" data-target="#dataModal">
+                                <i class="fas fa-plus-circle"></i> get
+                            </button>
+                            -->
+            </div>
+
+            <br>
+            <!-- DATA -->
+            <mat-chip-list aria-label="Fish selection">
+              <!--
+              <span matBadge="{{dietasCopy.length}}" matBadgeColor="warn" class="spnaBadge">
+                <mat-chip color="basic" selected (click)="selectTipo('todos')">Todos</mat-chip>
+              </span>
+              -->
+              <span *ngFor="let tipo of tiposDietas" matBadge="{{tipo.longitud}}" class="spnaBadge">
+                <mat-chip color="basic" selected (click)="selectTipo(tipo.nombre)">{{tipo.nombre}}</mat-chip>
+              </span>
+
+
+            </mat-chip-list>
+
+            <hr>
+
+            <div class="row">
+              <div class="col-sm-6 col-md-4" *ngFor="let item of dietas; let i = index">
+                <a [routerLink]="['/admin/dieta',item._id ]">
+                  <div class="card" class="img-contenedor">
+                    <img class="card-img-top text-center" [src]="item.imagen" alt="Card image cap">
+                    <div class="card-body cardTitle">
+                      <h5 class="card-title text-center"> {{item.titulo}}</h5>
+                    </div>
+                  </div>
+
+                </a>
+
+                <div class="text-center btns">
+                  <button style='font-size: xx-small;' mat-raised-button title="editar" type="button"
+                    class="btn btn-sm btn-outline-warning" (click)="editModal(item)" data-toggle="modal"
+                    data-target="#dataModal"><i class="fas fa-edit" id="iconEdit"></i></button>
+                  <button style='font-size: xx-small;' mat-raised-button title="eliminar" type="button"
+                    class="btn btn-sm btn-outline-danger" (click)="cargarId(item._id,$event)" data-toggle="modal"
+                    data-target="#modalDeleted"><i class="fas fa-trash-alt" [id]="item._id"></i> <img class='load'
+                      src="assets/gif/cargando-loading-031.gif"> </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <span *ngIf="new == true"><i class="fas fa-running"></i>&nbsp;Nueva Dieta</span>
+          <span *ngIf="new == false"><i class="fas fa-edit"></i>&nbsp;Editar Dieta</span>
+
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-entrenamiento" (ngSubmit)="guardar()" #form="ngForm">
+        <div class="modal-body">
+          <div class="example-container">
+            <div class="row">
+              <div class="col-md-12">
+
+                <mat-form-field *ngIf="new == true">
+                  <mat-label>Tipo de dieta</mat-label>
+                  <mat-select disableRipple name="tipo" [(ngModel)]="dieta.tipo" #type="ngModel" required>
+                    <mat-option *ngFor="let tipo of tiposDietas" [value]="tipo.nombre">{{tipo.nombre}}</mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR TIPO DIETA-->
+                  <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                    <span *ngIf="type.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="new == false">
+                  <mat-label>Tipo de dieta</mat-label>
+                  <mat-select disableRipple name="tipo" [(ngModel)]="dietaEdit.tipo" #type="ngModel" required>
+                    <mat-option *ngFor="let tipo of tiposDietas" [value]="tipo.nombre">{{tipo.nombre}}</mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR TIPO DIETA-->
+                  <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                    <span *ngIf="type.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="example-full-width" *ngIf="new == true">
+                  <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="dieta.titulo"
+                    #title="ngModel" required maxlength="100" #input>
+                  <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
+                  <!--MSJ ERROR TITULO-->
+                  <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                    <span *ngIf="title.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" *ngIf="new == false">
+                  <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="dietaEdit.titulo"
+                  #title="ngModel" required maxlength="100" #input>
+                  <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
+                  <!--MSJ ERROR TITULO-->
+                  <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                    <span *ngIf="title.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field *ngIf="new == true">
+                  <textarea matInput placeholder="Objetivo" rows="3" name="objetivo"
+                    [(ngModel)]="dieta.objetivo" #obj="ngModel" required maxlength="256" #input></textarea>
+                    <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+                    <!--MSJ ERROR OBJETIVO-->
+                    <mat-error *ngIf="obj.errors && (obj.dirty || obj.touched)">
+                      <span *ngIf="obj.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="new == false">
+                  <textarea matInput placeholder="Objetivo" rows="3" name="objetivo"
+                    [(ngModel)]="dietaEdit.objetivo" #obj="ngModel" required maxlength="256" #input></textarea>
+                    <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+                    <!--MSJ ERROR OBJETIVO-->
+                    <mat-error *ngIf="obj.errors && (obj.dirty || obj.touched)">
+                      <span *ngIf="obj.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+
+                <mat-form-field *ngIf="new == true">
+                  <mat-label>Dificultad</mat-label>
+                  <mat-select disableRipple name='tipoDificultad' [(ngModel)]="dieta.dificultad"
+                  required #dif="ngModel">
+                    <mat-option *ngFor="let tipo of tiposDificultad" [value]="tipo">{{tipo}}</mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR DIFICULTAD-->
+                  <mat-error *ngIf="dif.errors && (dif.dirty || dif.touched)">
+                      <span *ngIf="dif.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="new == false">
+                  <mat-label>Dificultad</mat-label>
+                  <mat-select disableRipple name='tipoDificultad' [(ngModel)]="dietaEdit.dificultad"
+                  required #dif="ngModel">
+                    <mat-option *ngFor="let tipo of tiposDificultad" [value]="tipo">{{tipo}}</mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR DIFICULTAD-->
+                  <mat-error *ngIf="dif.errors && (dif.dirty || dif.touched)">
+                      <span *ngIf="dif.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                </mat-form-field>
+
+              </div>
+              <div class="col-md-4">
+
+                <mat-form-field *ngIf="new == true">
+                  <mat-label>Duracion en la Preparacion</mat-label>
+                  <mat-select disableRipple name='tiempo' [(ngModel)]="dieta.tiempo"
+                  required #time="ngModel">
+                    <mat-option *ngFor="let tipo of tiposTiempo" [value]="tipo">{{tipo}}</mat-option>
+                  </mat-select>
+                   <!--MSJ ERROR DURACION-->
+                   <mat-error *ngIf="time.errors && (time.dirty || time.touched)">
+                      <span *ngIf="time.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="new == false">
+                  <mat-label>Duracion</mat-label>
+                  <mat-select disableRipple name='tiempo' [(ngModel)]="dietaEdit.tiempo" required #time="ngModel">
+                      <mat-option *ngFor="let tipo of tiposTiempo" [value]="tipo">{{tipo}}</mat-option>
+                    </mat-select>
+                     <!--MSJ ERROR DURACION-->
+                     <mat-error *ngIf="time.errors && (time.dirty || time.touched)">
+                        <span *ngIf="time.errors.required">Este campo no puede estar vacío</span>
+                      </mat-error>
+                </mat-form-field>
+
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width" *ngIf="new == true">
+                  <input matInput type="number" placeholder="Porciones" name="porciones" [(ngModel)]="dieta.porciones"
+                  required min="1" max="15" #por="ngModel">
+                  <!--MSJ ERROR PORCIONES-->
+                  <mat-error *ngIf="por.errors && (por.dirty || por.touched)">
+                    <span *ngIf="por.errors.required">Este campo no puede estar vacío</span>
+                    <span *ngIf="por.errors.min || por.errors.max">Series solo puede valores entre 1 y 10</span>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" *ngIf="new == false">
+                  <input matInput type="number" placeholder="Porciones" name="porciones"
+                    [(ngModel)]="dietaEdit.porciones" required min="1" max="15" #por="ngModel">
+                    <!--MSJ ERROR PORCIONES-->
+                    <mat-error *ngIf="por.errors && (por.dirty || por.touched)">
+                      <span *ngIf="por.errors.required">Este campo no puede estar vacío</span>
+                      <span *ngIf="por.errors.min || por.errors.max">Series solo puede valores entre 1 y 10</span>
+                    </mat-error>
+                </mat-form-field>
+
+
+              </div>
+            </div>
+
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-6">
+                  Ingredientes (máx. 10 items) <button mat-button color="primary" class='btn-add btn-ico' (click)="addIngrediente()"
+                    type="button"> <i class="fas fa-plus-circle"></i> </button>
+                  <button mat-button color="warn" class='btn-add btn-ico' (click)="deletedIngrediente()" type="button"> <i
+                      class="fas fa-minus-circle"></i> </button>
+
+
+                  <mat-form-field class="add-item" *ngFor="let item of itemsIngredientes; let i = index">
+                    <span matPrefix>- &nbsp;</span>
+
+                    <textarea matInput type="text" name="ingre_{{item.id}}" [(ngModel)]="item.value" #ing="ngModel"
+                        required> </textarea>
+
+                    <!--MSJ ERROR INGREDIENTES-->
+                    <mat-error *ngIf="ing.errors && (ing.dirty || ing.touched)">
+                      <span *ngIf="ing.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                  </mat-form-field>
+
+
+
+
+                </div>
+
+                <div class="col-md-6">
+                    Preparacion (máx. 10 items)<button mat-button color="primary" class='btn-add btn-ico' (click)="addPreparacion()"
+                    type="button"><i class="fas fa-plus-circle"></i> </button>
+                  <button mat-button color="warn" class='btn-add btn-ico' (click)="deletedPreparacion()" type="button"> <i
+                      class="fas fa-minus-circle"></i> </button>
+
+                  <mat-form-field class="add-item" *ngFor="let item of itemsPreparacion; let i = index">
+                    <span matPrefix>{{i+1}}.&nbsp;</span>
+                    <textarea matInput type="text" name="prep_{{item.id}}" [(ngModel)]="item.value" #prep="ngModel"
+                        required> </textarea>
+                    <!--MSJ ERROR PREPARACIONES-->
+                    <mat-error *ngIf="prep.errors && (prep.dirty || prep.touched)">
+                      <span *ngIf="prep.errors.required">Este campo no puede estar vacío</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-5">
+                  <button mat-button color="warn" (click)="onClick()" type="button" *ngIf="new == true">
+                    <mat-icon>file_upload</mat-icon>
+                    {{text}} (.jpg o .png) * 
+                    <p class='file_p' >tamaño máx. (1MB)</p>                 
+                  </button>
+                  <button mat-button color="warn" (click)="onClick()" type="button" *ngIf="new == false">
+                    <mat-icon>file_upload</mat-icon>
+                    Actualizar imagen (.jpg o .png)
+                    <p class='file_p' >tamaño máx. (1MB)</p>  
+                  </button>
+                  <br/>
+  
+                  <div *ngIf="new == true" style="text-align: center;">
+                 
+                    <img [src]="dieta.imagen" class="card-img-modal"  />
+  
+                  </div>
+  
+                  <div *ngIf="new == false" style="text-align: center;">
+                 
+                    <img [src]="dietaEdit.imagen" class="card-img-modal" />
+  
+                  </div>
+  
+                  <input *ngIf="new == true" type="file" id="fileUpload" name="fileUpload" multiple="multiple"
+                    accept="{{accept}}" style="display:none;" (change)="onSelectFile($event,0)" />
+                  <input *ngIf="new == false" type="file" id="fileUpload" name="fileUpload" multiple="multiple"
+                    accept="{{accept}}" style="display:none;" (change)="onSelectFile($event,1)" />
+  
+                </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button *ngIf="new == true" type="submit" class="btn btn-primary" >Guardar</button>
+          <button *ngIf="new == false" type="submit" class="btn btn-primary" [disabled]='btnSave'>Editar</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Comfirm Modal-->
+<!-- Modal -->
+<div class="modal fade" id="modalDeleted" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Esta seguro de eliminar esta dieta?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="eliminar()">Si</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

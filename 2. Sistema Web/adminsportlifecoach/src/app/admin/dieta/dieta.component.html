@@ -1,0 +1,64 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title "><i class="fas fa-arrow-left" routerLink="/admin/dietas"></i>  Dieta</h4>
+                    </div>
+                    <div class="card-body">
+                      
+                        <div class="row row-1 animated fadeInRight">
+                           
+
+                                <div class="card card1" >
+                                        <h5 class="card-header cardhead"><strong>{{dieta.titulo | uppercase}}</strong></h5>
+                                 
+                                        <div class="card-body">
+                                                
+                                                <p style="margin-bottom: 0px;"><strong>Objetivo:</strong></p>
+                                                <p class="card-text">{{dieta.objetivo}}</p>
+                                                
+                                                <p> <strong>Dificultad: </strong> {{dieta.dificultad}}&nbsp;&nbsp; 
+                                                    <strong>Duracion: </strong> {{dieta.tiempo}}&nbsp;&nbsp;  
+                                                    <strong>Porciones: </strong> {{dieta.porciones}}
+                                                </p>
+
+                                                <p class="card-text"> <strong>{{dieta.tipo}}</strong></p>
+                                        </div>
+                                </div>
+
+                        </div>
+
+                        <hr style="margin-top: 0px; margin-bottom: 0px;">
+
+                        <div class="row row-1 animated fadeInRight">
+                            <div class="col-sm-6 col-md-5" >
+                                <div class="card" >
+                                    <img class="card-img-top text-center imagen" src="{{dieta.imagen}}" alt="Card image cap" >                           
+                                </div>
+                            </div>
+
+                              <div class="col-sm-6 col-md-7">
+                                    <br>
+                                    <h4 class="cardhead"><strong>Ingredientes</strong></h4>
+                                    <p *ngFor="let item of dieta.ingredientes; let i = index"  ><span class="">*</span> {{item.value}}</p>
+                              </div>
+                        </div>
+
+                        <div class="row row-1 animated fadeInRight">
+                              <div class="col-sm-12">
+                                    <h4 class="cardhead"><strong>Preparacion</strong></h4>
+                                    <p *ngFor="let item of dieta.preparacion; let i = index"  ><span class="">{{item.id}}. </span> {{item.value}}</p>
+                              </div>
+                        </div>
+
+                     
+                    
+                    </div>
+                </div>
+            </div>
+     
+        </div>
+    </div>
+</div>

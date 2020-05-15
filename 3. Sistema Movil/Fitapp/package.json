@@ -1,0 +1,126 @@
+{
+  "name": "FitApp",
+  "version": "0.0.1",
+  "author": "Ionic Framework",
+  "homepage": "https://ionicframework.com/",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^8.2.2",
+    "@angular/core": "^8.2.2",
+    "@angular/fire": "^5.2.1",
+    "@angular/forms": "^8.2.2",
+    "@angular/platform-browser": "^8.2.2",
+    "@angular/platform-browser-dynamic": "^8.2.2",
+    "@angular/router": "^8.2.2",
+    "@ionic-native/camera": "^5.14.0",
+    "@ionic-native/core": "^5.0.0",
+    "@ionic-native/facebook": "^5.15.0",
+    "@ionic-native/fcm": "^5.17.1",
+    "@ionic-native/google-plus": "^5.17.1",
+    "@ionic-native/image-picker": "^5.14.0",
+    "@ionic-native/native-storage": "^5.0.0",
+    "@ionic-native/splash-screen": "^5.0.0",
+    "@ionic-native/status-bar": "^5.0.0",
+    "@ionic/angular": "^4.7.4",
+    "cordova-android": "^8.0.0",
+    "cordova-browser": "6.0.0",
+    "cordova-ios": "5.0.1",
+    "cordova-plugin-camera": "^4.1.0",
+    "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-facebook4": "^5.0.0",
+    "cordova-plugin-fcm-with-dependecy-updated": "^4.1.1",
+    "cordova-plugin-googleplus": "^8.2.1",
+    "cordova-plugin-ionic-keyboard": "^2.1.3",
+    "cordova-plugin-ionic-webview": "^3.1.2",
+    "cordova-plugin-nativestorage": "^2.3.2",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-telerik-imagepicker": "^2.3.3",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "core-js": "^2.5.4",
+    "firebase": "^6.3.5",
+    "g": "^2.0.1",
+    "native": "^0.3.3",
+    "promise-polyfill": "^8.1.0",
+    "run": "^1.4.0",
+    "rxjs": "~6.5.2",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "^0.802.2",
+    "@angular-devkit/build-angular": "^0.802.2",
+    "@angular-devkit/core": "^8.2.2",
+    "@angular-devkit/schematics": "^8.2.2",
+    "@angular/cli": "~8.2.2",
+    "@angular/compiler": "~8.2.2",
+    "@angular/compiler-cli": "^8.2.2",
+    "@angular/language-service": "~8.2.2",
+    "@ionic/angular-toolkit": "^2.0.0",
+    "@ionic/lab": "2.0.5",
+    "@types/jasmine": "~2.8.8",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~10.12.0",
+    "codelyzer": "^5.0.1",
+    "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~1.1.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "protractor": "~5.4.0",
+    "ts-node": "~8.0.0",
+    "tslint": "~5.12.0",
+    "typescript": "3.5.3"
+  },
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "2459771217389819",
+        "APP_NAME": "FMovilLogin",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.0.2"
+      },
+      "cordova-plugin-telerik-imagepicker": {
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "FitApp quiere acceder a la galería de fotos de tu celular para que puedas escoger la imagen que mas te guste"
+      },
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-nativestorage": {},
+      "cordova-plugin-fcm-with-dependecy-updated": {
+        "FCM_CORE_VERSION": "16.0.9",
+        "FCM_VERSION": "18.0.0",
+        "GRADLE_TOOLS_VERSION": "3.5.0",
+        "GOOGLE_SERVICES_VERSION": "4.2.0"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.apps.googleusercontent.231674641543-hek1pi0mqerjv8b15j24ubldblh4iuug",
+        "WEB_APPLICATION_CLIENT_ID": "231674641543-hek1pi0mqerjv8b15j24ubldblh4iuug.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
+      }
+    },
+    "platforms": [
+      "android",
+      "ios",
+      "browser"
+    ]
+  }
+}

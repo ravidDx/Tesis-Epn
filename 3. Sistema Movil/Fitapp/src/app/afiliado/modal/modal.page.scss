@@ -1,0 +1,27 @@
+ion-toolbar {
+    background-color:#0f0f0f;
+}
+
+.contenedor{
+    margin:70px 35px 70px 35px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.title {
+    font-size: 30px;
+}
+
+.text {
+    font-size: 20px;
+}
+
+ion-img {
+    height:40vh;
+    width: 50vw;
+    overflow: hidden;
+    margin:auto;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    //size: 60px;
+}

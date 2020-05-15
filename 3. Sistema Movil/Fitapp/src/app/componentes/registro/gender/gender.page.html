@@ -1,0 +1,258 @@
+<ion-content>
+  <div class="bg text">
+    <!--<div ><ion-note slot="end">Skip</ion-note></div>  Skip  -->
+    <ion-row>
+      <ion-col size="2" class="ion-margin-top">
+        <ion-icon name="arrow-back" routerLink="/slide"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-padding-top ion-margin-top">
+        <ion-text text-center class="text">
+          REGISTRO NUEVA CUENTA
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+
+    <form [formGroup]="regForm" (ngSubmit)="registrar()">
+      <ion-slides mode="ios" pager="true" [options]="slideOpts" #slides>
+        <ion-slide>
+          <ion-label>
+            ¿Eres hombre o mujer?
+          </ion-label>
+          <ion-segment formControlName="genero" class="gender" margin-top>
+            <ion-segment-button value="mujer">
+              <ion-icon padding-bottom class="icon" name="female"></ion-icon>
+              <ion-label class="text">Mujer</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="hombre">
+              <ion-icon padding-bottom class="icon" name="male"></ion-icon>
+              <ion-label class="text">Hombre</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+          <ion-footer>
+            <!--<ion-button size="large" color="success" expand="block" (click)="next(slides, 1)">Siguiente
+            </ion-button>-->
+          </ion-footer>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-label>¿Cuál es tu objetivo?</ion-label>
+
+          <ion-list class="ion-padding">
+            <ion-radio-group color="warning" formControlName="objetivo">
+              <ion-item color="dark" class="font ion-margin-bottom">
+                <ion-icon color="warning" name="flame"></ion-icon>
+                <ion-note class="ion-margin-top ion-padding obj">PERDER PESO Y QUEMAR GRASA</ion-note>
+                <ion-radio color="warning" mode="ios" slot="start" value="perder peso" checked></ion-radio>
+              </ion-item>
+
+              <ion-item color="dark" class="font ion-margin-bottom">
+                <ion-icon color="tertiary" name="thumbs-up"></ion-icon>
+                <ion-note class="ion-margin-top ion-padding obj">GANAR MASA MUSCULAR Y FUERZA</ion-note>
+                <ion-radio color="warning" mode="ios" slot="start" value="ganar masa muscular"></ion-radio>
+              </ion-item>
+
+              <ion-item color="dark" class="font">
+                <ion-icon color="success" name="body"></ion-icon>
+                <ion-note class="ion-margin-top ion-padding obj">VIVIR DE FORMA SALUDABLE Y MANTENER MI PESO</ion-note>
+                <ion-radio color="warning" mode="ios" slot="start" value="mantener peso"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+          <ion-footer>
+            <!--<ion-row>
+              <ion-col>
+                <ion-button size="large" color="warning" expand="block" (click)="back(slides,0)">Atrás
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button size="large" color="success" expand="block" (click)="next(slides, 2)">Siguiente
+                </ion-button>
+              </ion-col>
+            </ion-row>-->
+          </ion-footer>
+        </ion-slide>
+
+        <ion-slide class="scroll">
+          <ion-label class="ion-margin-bottom">
+            Brindanos tu información personal
+          </ion-label>
+
+          <div class="login-box ">
+            <ion-item color="login" class="font">
+              <ion-label position="floating">NOMBRE</ion-label>
+              <ion-input type="text" formControlName="nombre"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <div *ngFor="let validation of validation_messages.nombre">
+                <span class="error-message" *ngIf="regForm.get('nombre').hasError(validation.type)
+                         && (regForm.get('nombre').dirty || regForm.get('nombre').touched)">
+                  <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </div>
+            </div>
+            <ion-item color="login" class="font">
+              <ion-label position="floating">APELLIDO</ion-label>
+              <ion-input type="text" formControlName="apellido"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <div *ngFor="let validation of validation_messages.apellido">
+                <span class="error-message" *ngIf="regForm.get('apellido').hasError(validation.type)
+                           && (regForm.get('apellido').dirty || regForm.get('apellido').touched)">
+                  <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </div>
+            </div>
+            <ion-item color="login" class="font">
+              <ion-label position="floating">EMAIL</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <div *ngFor="let validation of validation_messages.email">
+                <span class="error-message" *ngIf="regForm.get('email').hasError(validation.type)
+                           && (regForm.get('email').dirty || regForm.get('email').touched)">
+                  <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </div>
+            </div>
+
+            <div formGroupName="matching_passwords">
+              <ion-item color="login" class="font">
+                <ion-label position="floating">CONTRASEÑA</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+              </ion-item>
+              <div class="validation-errors" *ngFor="let validation of validation_messages.password">
+                <span class="error-message" *ngIf="regForm.get('matching_passwords').get('password').hasError(validation.type) 
+                          && (regForm.get('matching_passwords').get('password').dirty || 
+                          regForm.get('matching_passwords').get('password').touched)">
+                  <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </div>
+
+              <ion-item color="login" class="font">
+                <ion-label position="floating">CONFIRMAR CONTRASEÑA</ion-label>
+                <ion-input type="password" formControlName="confirm_password"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <div *ngFor="let validation of validation_messages.confirm_password">
+                  <span class="error-message" *ngIf="regForm.get('matching_passwords').get('confirm_password').hasError(validation.type)
+                           && (regForm.get('matching_passwords').get('confirm_password').dirty 
+                           || regForm.get('matching_passwords').get('confirm_password').touched)">
+                    <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                    {{ validation.message }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- These validations are for the form group -->
+            <div class="validation-errors">
+              <div *ngFor="let validation of validation_messages.matching_passwords">
+                <span class="error-message" *ngIf="regForm.get('matching_passwords').hasError(validation.type) 
+                        && (regForm.get('matching_passwords').get('confirm_password').dirty 
+                        || regForm.get('matching_passwords').get('confirm_password').touched)">
+                  <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+
+
+          <ion-footer>
+            <!--<ion-row>
+              <ion-col>
+                <ion-button size="large" color="warning" expand="block" (click)="back(slides,1)">Atrás
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button size="large" color="success" expand="block" (click)="next(slides, 3)">Siguiente
+                </ion-button>
+              </ion-col>
+            </ion-row>-->
+          </ion-footer>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-label class="ion-margin-bottom">
+            Brindanos tu información personal
+          </ion-label>
+
+          <div class="login-box ">
+            <ion-item color="login" class="font">
+              <ion-label>FECHA DE NACIMIENTO</ion-label>
+              <ion-datetime displayFormat="D MMMM YYYY" formControlName="date" placeholder="Elige" min="1920"
+                max="2001"></ion-datetime>
+            </ion-item>
+            <div class="validation-errors">
+              <div *ngFor="let validation of validation_messages.date">
+                <span class="error-message" *ngIf="regForm.get('date').hasError(validation.type)
+                       && (regForm.get('date').dirty || regForm.get('date').touched)">
+                  <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </div>
+            </div>
+            <ion-row>
+              <ion-col>
+                <ion-item color="login" class="font">
+                  <ion-label class="ion-padding-end ion-margin-end dato1">PESO</ion-label>
+                  <ion-input text-end type="number" formControlName="peso" placeholder="60"></ion-input>
+                  <ion-note class="mag">KG</ion-note>
+                  <!--<ion-range min="-200" max="200" color="secondary">
+                  <ion-label slot="start">-200</ion-label>
+                  <ion-label slot="end">200</ion-label>
+                  </ion-range>-->
+                </ion-item>
+                <div class="validation-errors">
+                  <div *ngFor="let validation of validation_messages.peso">
+                    <span class="error-message" *ngIf="regForm.get('peso').hasError(validation.type)
+                             && (regForm.get('peso').dirty || regForm.get('peso').touched)">
+                      <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                      {{ validation.message }}
+                    </span>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item color="login" class="font">
+                  <ion-label class="ion-margin-end dato">ALTURA</ion-label>
+                  <ion-input text-end type="number" formControlName="altura" placeholder="160"></ion-input>
+                  <ion-note class="mag">cm</ion-note>
+                </ion-item>
+                <div class="validation-errors">
+                  <div *ngFor="let validation of validation_messages.altura">
+                    <span class="error-message" *ngIf="regForm.get('altura').hasError(validation.type)
+                             && (regForm.get('altura').dirty || regForm.get('altura').touched)">
+                      <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                      {{ validation.message }}
+                    </span>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+          <ion-footer>
+            <ion-row>
+              <!--<ion-col>
+                <ion-button size="large" color="warning" expand="block" (click)="back(slides,2)">Atrás
+                </ion-button>
+              </ion-col>-->
+              <ion-col>
+                <ion-button type="submit" [disabled]="!regForm.valid" size="large" color="success" expand="block">
+                  Registrar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-footer>
+        </ion-slide>
+      </ion-slides>
+    </form>
+  </div>
+</ion-content>

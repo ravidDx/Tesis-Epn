@@ -1,0 +1,111 @@
+.bg{
+    height: auto;
+    max-width: 100%;
+    background: rgb(36,43,36);
+    background: linear-gradient(184deg, rgba(36,43,36,0.5830991937873069) 0%, rgba(0,0,0,0.9173688567086552) 100%),url("../../../assets/video/training-828741_1280.jpg") center center no-repeat;
+    background-size: auto;
+}
+ion-slide {
+    height: 100vh;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+}
+.bullets{
+    --bullet-background: white;
+    --bullet-background-active: #ffa600;//#07083f;
+}
+
+img {
+    height:40vh;
+    width: 70vw;
+    overflow: hidden;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    //size: 60px;
+}
+
+
+ion-label {
+    color:white;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+ion-button{
+    margin-bottom: 35px;
+    margin-top: 15px;
+    --padding-end:45px;
+    --padding-start:45px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 50px;
+}
+.btn{
+    border: 3px solid rgb(52, 58, 56);
+}
+
+ion-note {
+    color:white;
+    font-weight: bold;
+}
+
+.text{
+    border-bottom: 1px solid white;
+}
+ion-text{
+    margin-left:40px;
+    margin-right: 40px;
+}
+
+.icon {
+    max-width: 45vw;
+    max-height: 45vh;
+    display:blok;
+    margin: 0 auto;
+}
+
+.premium {
+    max-width: 80vw;
+    max-height: 70vh;
+    display:blok;
+    margin: 0 auto;
+}
+
+/*ion-img{
+    
+}*/
+
+ion-icon {
+    font-size: 40px;
+}
+
+ion-avatar {
+    width:100% !important;  
+    height:100% !important;  
+    max-width: 100px !important;  //any size
+    max-height:100px !important; 
+}
+
+.steps {
+   font-size: 15px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+
+h3{
+    font-size: 15px;
+    color:white;
+    margin-top:10px;
+    margin-bottom: 0px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.no {
+    margin:0px;
+}

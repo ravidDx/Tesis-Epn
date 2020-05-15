@@ -1,0 +1,30 @@
+ul.navega li {
+    display: inline;
+    vertical-align: top;
+  
+    font-size: 1.2em;
+    padding: 0.5em;
+}
+
+
+progress { background-color: #f3f3f3; border: 1px; height: 20px; width: 100%; border-radius: 9px; color: black;}
+/* Safari Chrome */
+progress::-webkit-progress-bar { background-color: #f3f3f3; border-radius: 9px;}
+progress::-webkit-progress-value { background: orange; border-radius: 9px;}
+/* firefox */
+progress::-moz-progress-bar { background:orange; border-radius: 9px;}
+  
+progress[value]::-webkit-progress-value::before {
+  content: '80%';
+  position: absolute;
+  right: 0;
+  top: -125%;
+}
+
+
+.spanPorcen{
+    color: #ff9800;
+    font-size: xx-large;
+    padding-right: 18px;
+}
+  

@@ -1,0 +1,59 @@
+ <ion-header class="fondo">
+    <ion-toolbar >
+      <ion-title text-center class="title" >RUTINA</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button color="light" text=""></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="fondo">
+<ion-card class="ion-paddig ion-margin">
+  <ion-card-header class="space">
+            <ion-card-title color="light">{{rutina.titulo}}</ion-card-title>
+            <ion-card-subtitle class="ion-text-justify">{{rutina.objetivo}}</ion-card-subtitle>
+            <p>EJERCICIOS: {{rutina['numEjers']}}</p>
+  </ion-card-header>
+</ion-card>
+<ion-slides  [options]="slideOpts" class="ion-text-wrap" >
+  <ion-slide *ngFor="let item of rutina.ejercicios; let i = index" class="ion-text-wrap">
+  <ion-card class="ion-paddig ion-margin">
+    <img [src]=item.ejercicio.imagen />
+    <ion-card-subtitle color="light"class="ion-margin" >{{item.ejercicio.titulo | uppercase}}</ion-card-subtitle>  
+    
+    <ion-card-content class="ion-no-padding">
+  <div class="contenedor">
+      <ion-row class="ion-no-padding ion-no-margin">
+        <ion-col class="ion-no-padding" >
+          <ion-chip color="tertiary">
+            <ion-icon name="md-people"></ion-icon>
+            <ion-label>{{item.ejercicio.titulo}}</ion-label>
+        </ion-chip>
+        </ion-col>
+        <ion-col class="ion-no-padding">
+          <ion-chip color="secondary">
+            <ion-icon name="md-calculator"></ion-icon>
+            <ion-label>{{item.repeticiones}}</ion-label>
+        </ion-chip>
+        </ion-col>
+        <ion-col class="ion-no-padding">
+          <ion-chip color="primary" >
+            <ion-icon name="md-timer"></ion-icon>
+            <ion-label>{{item.descanso}}</ion-label>
+        </ion-chip>
+        </ion-col>
+   
+      </ion-row>
+      
+      
+    </div>
+    <br>
+    <ion-button  [color]='color' (click)="viewEjercicio(item)">Acceder</ion-button>
+   
+    </ion-card-content >
+  </ion-card>
+    
+  </ion-slide>
+</ion-slides>
+
+</ion-content>

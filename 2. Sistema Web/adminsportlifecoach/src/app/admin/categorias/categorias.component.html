@@ -1,0 +1,137 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Categorias</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>Seleccione una categoria</p>
+                                <mat-radio-group aria-label="Selecccione una categoria">
+                                    <mat-radio-button class="radio-1" value="1" (click)="changeCatg('1')" checked>
+                                        Entrenamientos</mat-radio-button>
+                                    <mat-radio-button value="2" (click)="changeCatg('2')">Dietas</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+
+                            <div class="col-sm-6 col-md-6">
+
+                                <form id="form-categoria" (ngSubmit)="save()" #form="ngForm">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <mat-form-field class="example-full-width" *ngIf="listDisabled == false">
+                                                <input matInput placeholder="Tipo de Entrenamiento" name="categoria"
+                                                    [(ngModel)]="catgEntrenamiento.nombre" #type="ngModel" required maxlength="30" #input
+                                                    >
+                                                    <mat-hint align="end">{{input.value.length}} / 30</mat-hint>
+                                                <!--MSJ ERROR TIPO-->
+                                                <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                                                    <span *ngIf="type.errors.required">Campo no puede estar vacío</span>
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width" *ngIf="listDisabled == true">
+                                                <input matInput placeholder="Tipo de Dieta" name="dieta"
+                                                    [(ngModel)]="catgDieta.nombre" #type="ngModel" required maxlength="30" #input
+                                                    >
+                                                    <mat-hint align="end">{{input.value.length}} / 30</mat-hint>
+                                                <!--MSJ ERROR TIPO-->
+                                                <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                                                    <span *ngIf="type.errors.required">Campo no puede estar vacío</span>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <button type="submit" mat-raised-button class="btn btn-info ml-auto"
+                                        [disabled]="form.invalid">
+                                        <i class="fas fa-plus-circle"></i> Añadir
+                                    </button>
+
+
+                                    <div class="clearfix"></div>
+                                </form>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <table class="table table-sm" *ngIf="listDisabled == false">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Entrenamientos</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of catgEntrenList; let i = index">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.nombre}}</td>
+                                            <td>
+
+                                                <button mat-raised-button title="editar" type="button"
+                                                    class="btn btn-sm btn-outline-warning"
+                                                    style="font-size: xx-small"><i class="fas fa-edit"
+                                                        id="iconEdit"></i></button>
+                                                <button mat-raised-button title="eliminar" type="button"
+                                                    (click)='deletedCatgEntre(item.id, i)'
+                                                    class="btn btn-sm btn-outline-danger" style="font-size: xx-small"><i
+                                                        class="fas fa-trash-alt"></i> </button>
+
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-sm" *ngIf="listDisabled == true">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Dietas</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of catgDietaList; let i = index">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.nombre}}</td>
+                                            <td>
+                                                <button mat-raised-button title="editar" type="button"
+                                                    class="btn btn-sm btn-outline-warning "
+                                                    style="font-size: xx-small"><i class="fas fa-edit"
+                                                        id="iconEdit"></i></button>
+                                                <button mat-raised-button title="eliminar" type="button"
+                                                    (click)='deletedCatgDiet(item.id, i)'
+                                                    class="btn btn-sm btn-outline-danger "
+                                                    style="font-size: xx-small"><i class="fas fa-trash-alt"></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+  <ion-header class="fondo">
+    <ion-toolbar >
+      <ion-title text-center class="title" >{{ejercicio.tipo}}</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button color="light" text=""></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content  class="fondo">
+    <ion-card class="ion-margin ion-padding">
+      <img [src]=ejercicio.imagen />
+        <ion-card-header class="space">
+          <ion-card-subtitle>{{ejercicio.titulo}}</ion-card-subtitle>
+          <ion-card-title></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="contenedor ">
+            <ion-row class="ion-no-padding ion-no-margin">
+              <ion-col>
+                Dificultad <br>
+                <ion-text color=light>{{ejercicio.dificultad}}</ion-text>
+              </ion-col>
+              <!--BOTON PARA PONER EN AFILIADO PARA EL SEGUIMIENTO-->
+              <!--
+              <ion-col>
+                <ion-button *ngIf="btn===false" [color]='color' (click)="listo()">{{text}}</ion-button>
+                <ion-button *ngIf="btn===true" [color]='color' (click)="nolisto()">{{text}}</ion-button>
+              </ion-col>
+              -->
+            <!--*************-->
+            </ion-row>
+        </div>
+
+        <ion-item-group>
+          <ion-item-divider class="ion-no-padding">
+            <ion-label>INSTRUCCIONES</ion-label>
+          </ion-item-divider>
+
+          <ion-item class="ion-no-padding" *ngFor="let item of ejercicio.instruccion; let i=index">
+            <ion-chip class="ion-padding-end ion-margin-end" color="secondary">
+              <ion-note color="light">{{i+1}}</ion-note>
+            </ion-chip>
+            <ion-note class="ion-padding-bottom" color="light">{{item.value}}</ion-note>
+          </ion-item>
+        </ion-item-group>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

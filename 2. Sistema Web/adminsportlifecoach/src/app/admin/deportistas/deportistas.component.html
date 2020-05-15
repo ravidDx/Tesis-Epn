@@ -1,0 +1,492 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">Lista de Deportistas</h4>
+          </div>
+          <div class="card-body">
+            <div class="row animated fadeInRight btn-add">
+              <button mat-raised-button class="btn btn-info ml-auto" (click)="newModal()" data-toggle="modal"
+                data-target="#dataModal">
+                <i class="fas fa-plus-circle"></i> Añadir
+              </button>
+            </div>
+
+
+            <br>
+            <!-- DATA TABLE -->
+
+            <mat-form-field>
+              <mat-icon matPrefix>search</mat-icon>
+              <input matInput tabindex="1" (keyup)="applyFilter($event.target.value)" placeholder="Busqueda">
+            </mat-form-field>
+
+
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" class="text-center">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Num. </th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{(dataSource.filteredData.indexOf(element)) + 1}}</td>
+                </ng-container>
+
+                <!-- Nombre Column -->
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+                </ng-container>
+
+                <!-- Apellido Column -->
+                <ng-container matColumnDef="apellido">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Apellido </th>
+                  <td mat-cell *matCellDef="let element"> {{element.apellido}}</td>
+                </ng-container>
+
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <!-- Telefono Column -->
+                <ng-container matColumnDef="telefono">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Telefono </th>
+                  <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
+                  <td mat-cell *matCellDef="let element">
+
+                    <span *ngIf="element.estado == 'Activo'" class='spanEstado spanActivo'>{{element.estado}}</span>
+                    <span *ngIf="element.estado == 'Inactivo'" class='spanEstado spanInactivo'>{{element.estado}}</span>
+
+                  </td>
+                </ng-container>
+
+                <!-- Acciones Column -->
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button title="perfil" type="button"
+                      [routerLink]="['/admin/deportista-profile',element._id ]" class="btn btn-sm btn-outline-success"
+                      data-toggle="modal" data-target="#dataModal"><i class="fas fa-eye" id="iconEdit"></i></button>
+                    <!--<button mat-raised-button title="estadistica" type="button"
+                      [routerLink]="['/admin/estadistica',element._id ]" class="btn btn-sm btn-outline-primary"><i
+                        class="fas fa-chart-pie" id="iconEdit"></i></button>-->
+
+                    <button *ngIf="element.estado == 'Activo'" mat-raised-button title="editar" type="button" (click)="editModal(element)"
+                      class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#dataModal"><i
+                        class="fas fa-edit" id="iconEdit"></i></button>
+
+                      <button disabled *ngIf="element.estado == 'Inactivo'" mat-raised-button title="editar" type="button" (click)="editModal(element)"
+                      class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#dataModal"><i
+                        class="fas fa-edit" id="iconEdit"></i></button>
+
+
+                    <button *ngIf="element.estado == 'Activo'" mat-raised-button title="dar de baja" type="button"
+                      (click)="cargarObjectBaja(element, $event)" class="btn btn-sm btn-outline-danger"
+                      data-toggle="modal" data-target="#modalDeleted"> <i class="fas fa-lock-open"
+                        [id]="element._id"></i> <img class='load' src="assets/gif/cargando-loading-031.gif"> </button>
+                    <button *ngIf="element.estado == 'Inactivo'" mat-raised-button title="dar de alta" type="button"
+                      (click)="cargarObjectBaja(element, $event)" class="btn btn-sm btn-outline-danger"
+                      data-toggle="modal" data-target="#modalDeleted"> <i class="fas fa-lock" [id]="element._id"></i>
+                      <img class='load' src="assets/gif/cargando-loading-031.gif"> </button>
+
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+
+
+
+
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+
+
+            <!--
+                        <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'></ejs-datepicker>
+                          -->
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #eff1f3;">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <span *ngIf="new == true"><i class="fas fa-running"></i> Nuevo Deportista</span>
+          <span *ngIf="new == false"><i class="fas fa-edit"></i> Editar Deportista</span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-deportista" (ngSubmit)="guardar()" #form="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field class="example-full-width" *ngIf="new == true">
+                <input matInput placeholder="Nombre" type="text" name="nombre" [(ngModel)]="deportista.nombre"
+                  #name="ngModel" required minlength="3">
+                <!--MSJ ERROR NOMBRE-->
+                <mat-error *ngIf="name.errors && (name.dirty || name.touched)">
+                  <span *ngIf="name.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="name.errors.minlength">Nombre debe tener al menos 3 caracteres</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" *ngIf="new == false">
+                <input matInput placeholder="Nombre" type="text" name="nombre" [(ngModel)]="deportistaEdit.nombre"
+                  #name="ngModel" required minlength="3">
+                <!--MSJ ERROR NOMBRE-->
+                <mat-error *ngIf="name.errors && (name.dirty || name.touched)">
+                  <span *ngIf="name.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="name.errors.minlength">Nombre debe tener al menos 3 caracteres</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="example-full-width" *ngIf="new == true">
+                <input matInput placeholder="Apellido" type="text" name="apellido" [(ngModel)]="deportista.apellido"
+                  #lname="ngModel" required minlength="3">
+                <!--MSJ ERROR APELLIDO-->
+                <mat-error *ngIf="lname.errors && (lname.dirty || lname.touched)">
+                  <span *ngIf="lname.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="lname.errors.minlength">Apellido debe tener al menos 3 caracteres</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" *ngIf="new == false">
+                <input matInput placeholder="Apellido" type="text" name="apellido" [(ngModel)]="deportistaEdit.apellido"
+                  #lname="ngModel" required minlength="3">
+                <!--MSJ ERROR APELLIDO-->
+                <mat-error *ngIf="lname.errors && (lname.dirty || lname.touched)">
+                  <span *ngIf="lname.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="lname.errors.minlength">Apellido debe tener al menos 3 caracteres</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width" *ngIf="new == true">
+                <input matInput placeholder="Email" type="text" name="email" [(ngModel)]="deportista.email"
+                  #email="ngModel" required email>
+                <!--MSJ ERROR EMAIL-->
+                <mat-error *ngIf="email.errors && (email.dirty || email.touched)">
+                  <span *ngIf="email.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="email.errors.email">Ingrese un email válido</span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" *ngIf="new == false">
+                <input matInput placeholder="Email" type="text" name="email" [(ngModel)]="deportistaEdit.email"
+                  #email="ngModel" required email>
+                <!--MSJ ERROR EMAIL-->
+                <mat-error *ngIf="email.errors && (email.dirty || email.touched)">
+                  <span *ngIf="email.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="email.errors.email">Ingrese un email válido</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field class="example-full-width" *ngIf="new == true">
+                <input matInput placeholder="Telefono" type="text" name="telefono" [(ngModel)]="deportista.telefono"
+                  #telf="ngModel" required pattern="[0-9]{10}">
+                <!--MSJ ERROR TELF-->
+                <mat-error *ngIf="telf.errors && (telf.dirty || telf.touched)">
+                  <span *ngIf="telf.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="telf.errors.pattern">Un teléfono válido debe tener 10 dígitos</span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" *ngIf="new == false">
+                <input matInput placeholder="Telefono" type="text" name="telefono" [(ngModel)]="deportistaEdit.telefono"
+                  #telf="ngModel" required maxlength="10">
+                <!--MSJ ERROR TELF-->
+                <mat-error *ngIf="telf.errors && (telf.dirty || telf.touched)">
+                  <span *ngIf="telf.errors.required">Campo no puede estar vacío</span>
+                  <span *ngIf="telf.errors.maxlength">Un número de teléfono válido debe tener 10 dígitos</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field *ngIf="new == true">
+                <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" name="fechaN"
+                  [(ngModel)]="deportista.fechaN" #date="ngModel" required [min]="minDate" [max]="maxDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!--MSJ ERROR DATE-->
+                <mat-error *ngIf="date.errors && (date.dirty || date.touched)">
+                  <span *ngIf="date.errors.required">Campo no puede estar vacío</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="new == false">
+                <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" name="fechaN"
+                  [(ngModel)]="deportistaEdit.fechaN" #date="ngModel" required [min]="minDate" [max]="maxDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!--MSJ ERROR DATE-->
+                <mat-error *ngIf="date.errors && (date.dirty || date.touched)">
+                  <span *ngIf="date.errors.required">Campo no puede estar vacío</span>
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+          </div>
+          <div class="row">
+
+            
+              <div class="col-md-4">
+
+                  <mat-slider  *ngIf="new == true"
+                    name='pes'
+                    [max]="maxPeso"
+                    [min]="minPeso"
+                    [thumbLabel]="thumbLabelPeso"
+                    [(ngModel)]="deportista.peso"
+            
+                    >
+                 </mat-slider>
+  
+                 <mat-slider  *ngIf="new == false"
+                 name='pes'
+                 [max]="maxPeso"
+                 [min]="minPeso"
+                 [thumbLabel]="thumbLabelPeso"
+                 [(ngModel)]="deportistaEdit.peso"
+         
+                 >
+              </mat-slider>
+  
+              </div>
+                    
+              
+            <div class="col-md-2">
+
+              
+              
+                <mat-form-field class="example-full-width" *ngIf="new == true">
+                    <input matInput placeholder="Peso" type="number" name="peso" [(ngModel)]="deportista.peso"
+                    #weight="ngModel" required min="30" max="200" disabled>
+                    <span matSuffix>kg</span>
+                    
+                    <mat-error *ngIf="weight.errors && (weight.dirty || weight.touched)">
+                      <span *ngIf="weight.errors.required">Campo no puede estar vacío</span>
+                      <span *ngIf="weight.errors.min">Peso debe tener valores entre 30kg y 200kg</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" *ngIf="new == false">
+                    <input matInput placeholder="Peso" type="number" name="peso" [(ngModel)]="deportistaEdit.peso"
+                    #peso="ngModel" required min="30" max="200" disabled>
+                    <span matSuffix>kg</span>
+                    
+                    <mat-error *ngIf="peso.errors && (peso.dirty || peso.touched)">
+                      <span *ngIf="peso.errors.required">Campo no puede estar vacío</span>
+                      <span *ngIf="peso.errors.min">Peso debe tener valores entre 30kg y 200kg</span>
+                    </mat-error>
+                </mat-form-field>
+                
+            </div>
+
+                
+            <div class="col-md-4">
+
+                <mat-slider *ngIf="new == true"
+                  name='alt'
+                  [max]="maxAltura"
+                  [min]="minAltura"
+                  [thumbLabel]="thumbLabelAltura"
+                  [(ngModel)]="deportista.altura"
+                  >
+                </mat-slider>
+
+                <mat-slider *ngIf="new == false"
+                  name='alt'
+                  [max]="maxAltura"
+                  [min]="minAltura"
+                  [thumbLabel]="thumbLabelAltura"
+                  [(ngModel)]="deportistaEdit.altura"
+                  >
+                </mat-slider>
+  
+            </div>
+
+            <div class="col-md-2">
+                <mat-form-field class="example-full-width" *ngIf="new == true">
+                  <input matInput placeholder="Altura" type="number" name="altura" [(ngModel)]="deportista.altura"
+                  #alt="ngModel" required min="130" max="220" disabled>
+                  <span matSuffix>cm</span>
+                  <!--MSJ ERROR ALTURA-->
+                  <mat-error *ngIf="alt.errors && (alt.dirty || alt.touched)">
+                    <span *ngIf="alt.errors.required">Campo no puede estar vacío</span>
+                    <span *ngIf="alt.errors.min || alt.errors.max">Peso debe tener valores entre 130cm y 220cm</span>
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="example-full-width" *ngIf="new == false">
+                  <input matInput placeholder="Altura" type="number" name="altura" [(ngModel)]="deportistaEdit.altura"
+                  #alt="ngModel" required min="130" max="220" disabled>
+                  <span matSuffix>cm</span>
+                  <!--MSJ ERROR ALTURA-->
+                  <mat-error *ngIf="alt.errors && (alt.dirty || alt.touched)">
+                    <span *ngIf="alt.errors.required">Campo no puede estar vacío</span>
+                    <span *ngIf="alt.errors.min || alt.errors.max">Peso debe tener valores entre 130cm y 220cm</span>
+                  </mat-error>
+                </mat-form-field>
+            </div>
+
+
+
+          </div>
+
+          <div class="row section-radio">
+            <div class="col-md-12">
+
+   
+
+              <label id="radio-group-label">Genero (requerido)*</label>
+
+              <mat-radio-group *ngIf="new == true" [(ngModel)]="deportista.genero" name="genero">
+
+                <mat-radio-button class="radio-1" value="male" checked >             
+                  <div class="card-avatar" style="width: 70px;padding-right: 10px;">
+                    <img class="img" [src]="gifMale" />
+                  </div>
+                </mat-radio-button>
+                <mat-radio-button value="female" >
+                    <div class="card-avatar" style="width: 70px;padding-right: 10px;">
+                        <img class="img" [src]="gifFemale" />
+                    </div>                  
+                </mat-radio-button>
+              </mat-radio-group>
+
+              <mat-radio-group *ngIf="new == false" [(ngModel)]="deportistaEdit.genero" name="genero">
+                <mat-radio-button class="radio-1" value="male" checked>
+                    <div class="card-avatar" style="width: 70px;padding-right: 10px;">
+                        <img class="img" [src]="gifMale" />
+                    </div>
+                </mat-radio-button>
+                <mat-radio-button value="female">
+                    <div class="card-avatar" style="width: 70px; padding-right: 10px;">
+                        <img class="img" [src]="gifFemale" />
+                    </div> 
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field *ngIf="new == true">
+                <mat-label>Objetivo</mat-label>
+                <mat-select disableRipple [(ngModel)]="deportista.objetivo" name="objetivo" required #obj="ngModel">
+                  <mat-option *ngFor="let tipo of tiposObjetivo" [value]="tipo">{{tipo}}</mat-option>
+                </mat-select>
+                <!--MSJ ERROR OBJETIVO-->
+                <mat-error *ngIf="obj.errors && (obj.dirty || obj.touched)">
+                    <span *ngIf="obj.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="new == false">
+                <mat-label>Objetivo</mat-label>
+                <mat-select disableRipple [(ngModel)]="deportistaEdit.objetivo" name="objetivo" required #obj="ngModel">
+                  <mat-option *ngFor="let tipo of tiposObjetivo" [value]="tipo">{{tipo}}</mat-option>
+                </mat-select>
+                 <!--MSJ ERROR OBJETIVO-->
+                 <mat-error *ngIf="obj.errors && (obj.dirty || obj.touched)">
+                    <span *ngIf="obj.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field *ngIf="new == true">
+                <textarea matInput placeholder="Observaciones" rows="3" name="observaciones"
+                  [(ngModel)]="deportista.observaciones" #message required  maxlength="256" #obs="ngModel"></textarea>
+                  <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+                  <!--MSJ ERROR OBSERV-->
+                  <mat-error *ngIf="obs.errors && (obs.dirty || obs.touched)">
+                   <span *ngIf="obs.errors.required">Este campo no puede estar vacío</span>
+               </mat-error>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="new == false">
+                <textarea matInput placeholder="Observaciones" rows="3" name="observaciones"
+                  [(ngModel)]="deportistaEdit.observaciones"#message required  maxlength="256" #obs="ngModel"></textarea>
+                  <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+                  <!--MSJ ERROR OBSERV-->
+                  <mat-error *ngIf="obs.errors && (obs.dirty || obs.touched)">
+                   <span *ngIf="obs.errors.required">Este campo no puede estar vacío</span>
+               </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button *ngIf="new == true" type="submit" class="btn btn-primary" [hidden]='btnDisabled'
+            [disabled]='form.invalid'>Guardar</button>
+          <button *ngIf="new == false" type="submit" class="btn btn-primary" [hidden]='btnDisabled'
+            [disabled]='form.invalid'>Editar</button>
+          <button *ngIf="load == true" type="submit" class="btn btn-primary" [disabled]='true'>
+            <div class="loader"></div>
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Comfirm Modal-->
+<!-- Modal -->
+<div class="modal fade" id="modalDeleted" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{titleConfirm}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="darBaja()">Si</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

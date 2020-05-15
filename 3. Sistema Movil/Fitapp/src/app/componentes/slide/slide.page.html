@@ -1,0 +1,130 @@
+<ion-content>
+    <div class="bg">
+        <!--<div ><ion-note slot="end">Skip</ion-note></div>  Skip  -->
+        <ion-slides pager="true" mode="ios" [options]="slideOpts" class="bullets" effect="coverflow">
+            <ion-slide>
+                <ion-label>BIENVENIDOS A FIT APP</ion-label>
+                <ion-img src="../assets/video/icon.png" class="icon"></ion-img>
+                <ion-text class="ion-text-center" color="light">
+                    <h3>Encuentranos en todas las redes sociales como</h3>
+                </ion-text>
+                <ion-avatar>
+                    <img src="../assets/video/couch.jpg">
+                </ion-avatar>
+
+                <ion-row class="ion-padding-top ">
+                    <ion-col>
+                        <ion-icon color="light" name="logo-facebook"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                        <ion-icon color="light" name="logo-instagram"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                        <ion-icon color="light" name="logo-twitter"></ion-icon>
+                    </ion-col>
+                </ion-row>
+                <ion-note class="text">@SPORTCOACH18</ion-note>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-label>SE PREMIUM</ion-label>
+                <ion-text class="ion-text-center ion-margin-bottom" color="light">
+                    <h3>Visita nuestra página web SPORT & LIFE COACH</h3>
+                </ion-text>
+                <ion-img src="../../../assets/icon/premium.png" class="premium ">
+                </ion-img>
+                <div class="ion-margin-left ion-margin-right  ion-padding">
+                    <ion-row>
+                        <ion-col size="2">
+                            <ion-chip color="secondary">
+                                <ion-label class="steps"> 1 </ion-label>
+                            </ion-chip>
+                        </ion-col>
+                        <ion-col>
+                            <h3>Consulta la sección SERVICIOS</h3>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="2">
+                            <ion-chip color="secondary">
+                                <ion-label class="steps"> 2 </ion-label>
+                            </ion-chip>
+                        </ion-col>
+                        <ion-col>
+                            <h3 class="steps">Escoge el que más se acomode a tus necesidades</h3>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="2">
+                            <ion-chip color="secondary">
+                                <ion-label class="steps"> 3 </ion-label>
+                            </ion-chip>
+                        </ion-col>
+                        <ion-col>
+                            <h3 class="steps">Envia un mensaje a nuestro entrenador personal</h3>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                                <h3 class="no"><ion-icon class="icon" color="light" name="logo-whatsapp"></ion-icon> 098 659 8287</h3> 
+                                <h3 ><ion-icon name="mail" color="light" class="icon"></ion-icon>alberto18.ao@gmail.com</h3>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                            <ion-col size="2">
+                                <ion-chip color="secondary">
+                                    <ion-label class="steps"> 4 </ion-label>
+                                </ion-chip>
+                            </ion-col>
+                            <ion-col>
+                                <h3 class="steps">Obtén tu cita y primera sesión gratuita </h3>
+                            </ion-col>
+                        </ion-row>
+                </div>
+
+
+
+                <ion-button class="no" size="large" color="warning" shape="round" expand="block" fill="solid"
+                    routerLink="/registro/gender">SE PREMIUM</ion-button>
+
+            </ion-slide>
+
+            <ion-slide>
+                <ion-label>DATOS PERSONALES Y FISICOS</ion-label>
+                <ion-text class="ion-text-center" color="light">
+                    <h5>Establezca sus datos de condición física y vea su progreso</h5>
+                </ion-text>
+                <img src="../../../assets/video/crossfit-534615_1280.jpg" class="responsive">
+                <ion-button size="large" color="success" shape="round" expand="block" fill="solid"
+                    routerLink="/registro/gender">¡Unete Ahora!</ion-button>
+                <ion-note>¿YA ERES MIEMBRO?</ion-note>
+                <ion-note class="text" routerLink="/login">INGRESAR</ion-note>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-label>CUERPO SALUDABLE</ion-label>
+                <ion-text class="ion-text-center" color="light">
+                    <h5>Rutinas de ejercicio y dietas personalizadas</h5>
+                </ion-text>
+                <img src="../../../assets/video/collage.jpg">
+                <ion-button size="large" color="success" shape="round" expand="block" fill="solid"
+                    routerLink="/registro/gender">¡Unete Ahora!</ion-button>
+                <ion-note>¿YA ERES MIEMBRO?</ion-note>
+                <ion-note class="text" routerLink="/login">INGRESAR</ion-note>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-label>ESTADISTICAS</ion-label>
+                <ion-text class="ion-text-center" color="light">
+                    <h5>Calcula IMC, peso ideal, calorías diarías y quemadas</h5>
+                </ion-text>
+                <img src="../../../assets/video/sport.jpg">
+                <ion-button size="large" color="success" shape="round" expand="block" fill="solid"
+                    routerLink="/registro/gender">¡Unete Ahora!</ion-button>
+                <ion-note>¿YA ERES MIEMBRO?</ion-note>
+                <ion-note class="text" routerLink="/login">INGRESAR</ion-note>
+            </ion-slide>
+        </ion-slides>
+
+    </div>
+</ion-content>

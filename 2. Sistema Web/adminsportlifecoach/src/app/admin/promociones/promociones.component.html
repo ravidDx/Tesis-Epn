@@ -1,0 +1,231 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Listado de Promociones</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row animated fadeInRight btn-add">
+                            <button mat-raised-button class="btn btn-info ml-auto" (click)="newModal()" data-toggle="modal" data-target="#dataModal">
+                                <i class="fas fa-plus-circle"></i> Añadir
+                            </button>
+
+                            
+                            <!--
+                            <button mat-raised-button class="btn btn-info ml-auto" (click)="getDownload()" data-toggle="modal" data-target="#dataModal">
+                                <i class="fas fa-plus-circle"></i> get
+                            </button>
+                            -->
+                        </div>
+
+                        <br>
+                        <!-- DATA -->
+
+                        <!--<mat-chip-list aria-label="Fish selection">
+                            <mat-chip color="accent" selected>Promocion de precio</mat-chip>
+                            <mat-chip color="accent" >Promocion de regalos</mat-chip>
+                        </mat-chip-list>-->
+
+                        <span *ngFor="let tipo of tiposPromocion" matBadge="{{tipo.longitud}}" class="spnaBadge">
+                          <mat-chip color="basic" selected (click)="selectTipo(tipo.name)">{{tipo.name}}</mat-chip>
+                        </span>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4"  *ngFor="let item of promociones; let i = index" >
+                              <a  [routerLink]="['/admin/promocion',item._id ]" >
+                                  <div class="card" class="img-contenedor" >
+                                    <img class="card-img-top text-center" [src]="item.imagen" alt="Card image cap" >
+                                    <div class="card-body cardTitle">
+                                        <h5 class="card-title text-center"  > {{item.titulo}}</h5>
+                                    </div>
+                                  </div>
+
+                              </a>
+
+                              <div class="text-center btns" >
+                                  <button style='font-size: xx-small;' mat-raised-button  title="editar" type="button" class="btn btn-sm btn-outline-warning" (click)="editModal(item)" data-toggle="modal" data-target="#dataModal" ><i class="fas fa-edit" id="iconEdit"></i></button> 
+                                  <button style='font-size: xx-small;' mat-raised-button  title="eliminar" type="button"  class="btn btn-sm btn-outline-danger" (click)="cargarId(item._id,$event, item.posicion)" data-toggle="modal" data-target="#modalDeleted" ><i  class="fas fa-trash-alt" [id]="item._id"></i> <img class='load' src="assets/gif/cargando-loading-031.gif" > </button>    
+                                
+                               </div>
+                
+                            </div>
+                    
+                        </div>
+
+                                        
+                    </div>
+                </div>
+            </div>
+     
+        </div>
+    </div>
+</div>
+
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> 
+              <span  *ngIf="new == true"><i class="fas fa-running"></i>&nbsp;Nueva Promocion</span>
+              <span *ngIf="new == false"><i class="fas fa-edit"></i>&nbsp;Editar Promocion</span>
+
+          </h5> 
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="form-entrenamiento" (ngSubmit)="guardar()" #form="ngForm">
+          <div class="modal-body">
+
+
+              <div class="example-container">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                          <mat-form-field *ngIf="new == true">
+                            <mat-label>Tipo de promocion</mat-label>
+                            <mat-select disableRipple  name="tipo" [(ngModel)]="promocion.tipo"  required #type="ngModel">
+                                <mat-option *ngFor="let tipo of tiposPromocion" [value]="tipo.name">{{tipo.name}}</mat-option>
+                              </mat-select>
+                              <!--MSJ ERROR TIPO PROMO-->
+                              <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                                <span *ngIf="type.errors.required">Este campo no puede estar vacío</span>
+                              </mat-error>
+                          </mat-form-field>
+
+                          <mat-form-field *ngIf="new == false">
+                              <mat-label>Tipo de promocion</mat-label>
+                              <mat-select disableRipple name="tipo" [(ngModel)]="promocionEdit.tipo"
+                              required #type="ngModel">
+                              <mat-option *ngFor="let tipo of tiposPromocion" [value]="tipo.name">{{tipo.name}}</mat-option>
+                            </mat-select>
+                            <!--MSJ ERROR TIPO PROMO-->
+                            <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                              <span *ngIf="type.errors.required">Este campo no puede estar vacío</span>
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-12">
+                          <mat-form-field  *ngIf="new == true">
+                              <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="promocion.titulo"
+                              #title="ngModel" required minlength="3">
+                  <!--MSJ ERROR TITULO-->
+                  <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                    <span *ngIf="title.errors.required">Campo no puede estar vacío</span>
+                    <span *ngIf="title.errors.minlength">Nombre debe tener al menos 3 caracteres</span>
+                  </mat-error>
+                          </mat-form-field>
+                          <mat-form-field  *ngIf="new == false">
+                              <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="promocionEdit.titulo"
+                              #title="ngModel" required minlength="3">
+                  <!--MSJ ERROR TITULO-->
+                  <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                    <span *ngIf="title.errors.required">Campo no puede estar vacío</span>
+                    <span *ngIf="title.errors.minlength">Nombre debe tener al menos 3 caracteres</span>
+                  </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-12">
+                          <mat-form-field *ngIf="new == true">
+                              <textarea matInput placeholder="Objetivo" rows="3" name="objetivo" [(ngModel)]="promocion.objetivo"
+                              #detail="ngModel" required maxlength="256" #input></textarea>
+                              <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+                              <!--MSJ ERROR OBJETIVO-->
+                            <mat-error *ngIf="detail.errors && (detail.dirty || detail.touched)">
+                              <span *ngIf="detail.errors.required">Este campo no puede estar vacío</span>
+ 
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field *ngIf="new == false">
+                              <textarea matInput placeholder="Objetivo" rows="3" name="objetivo" [(ngModel)]="promocionEdit.objetivo"
+                              #detail="ngModel" required maxlength="256" #input></textarea>
+                              <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+                              <!--MSJ ERROR OBJETIVO-->
+                            <mat-error *ngIf="detail.errors && (detail.dirty || detail.touched)">
+                              <span *ngIf="detail.errors.required">Este campo no puede estar vacío</span>
+ 
+                            </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                        <button mat-button color="warn" (click)="onClick()" type="button">
+                            <mat-icon>file_upload</mat-icon>
+                            {{text}} ({{files.length}}) (requerido)*
+                          </button>
+                          <br/>
+                          <ul>
+                            <li *ngFor="let file of files" [@fadeInOut]="file.state">
+                              <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+                              <span id="file-label">
+                                {{file.data.name}}
+                                <a title="Retry" (click)="retryFile(file)" *ngIf="file.canRetry">
+                                  <mat-icon>refresh</mat-icon>
+                                </a>
+                                <a title="Cancel" (click)="cancelFile(file)" *ngIf="file.canCancel">
+                                  <mat-icon>cancel</mat-icon>
+                                </a>
+                              </span>
+                            </li>
+                          </ul>
+                          <input type="file" id="fileUpload" name="fileUpload" multiple="multiple" accept="{{accept}}" style="display:none;" />
+                          
+                    </div>
+                  </div>
+
+          
+                  
+                  
+                  
+              </div>
+
+             
+          
+    
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <button type="submit" *ngIf="new == true"  class="btn btn-primary" [disabled]='form.invalid' >Guardar</button>
+            <button type="submit" *ngIf="new == false" class="btn btn-primary" [disabled]=btnSave >Editar</button>     
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+
+
+<!--Comfirm Modal-->
+<!-- Modal -->
+<div class="modal fade" id="modalDeleted" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Esta seguro de eliminar esta promocion?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" >Si</button>
+          <button type="button" class="btn btn-secondary"  data-dismiss="modal" >No</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,118 @@
+ion-icon{
+    font-size: 30px;
+}
+
+.rs {
+    font-size:25px;
+}
+
+ion-toolbar {
+    background-color:#0f0f0f;
+}
+.title{
+    font-size:17px;
+    color:white;
+    font-weight: bolder;
+}
+
+.bkg {
+    //padding-bottom: 40%;
+    padding: 15px 10px 10px 10px;
+    margin-bottom:7px; 
+    background-color: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 23%, rgba(4,128,199,1) 39%, rgba(3,186,208,0.9932115533378687) 54%, rgba(3,208,123,0.9847845870457338) 79%); 
+}
+h2{
+    font-weight: bold;
+}
+ion-card{
+    padding: 0%;
+    margin:15px;
+}
+
+.contenedor{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+ }
+.texto-encima{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    font-weight: bolder;
+    font-size: 20px;
+    color:white;
+}
+.text2{
+    position: absolute;
+    top: 65%;
+    left: 10%;
+    font-size: 15px;
+    color:white;
+    //transform: translate(-50%, -50%);
+}
+
+img{
+    width:250%;
+}
+
+ion-note{
+    margin:0%;
+    padding-left:0%;
+}
+
+ion-card-header{
+    padding-bottom: 0%;
+}
+
+// ************************** GRAFICO IMC 
+
+.y{
+    background-color: #fdfa28;
+    color: #aca91e;
+}
+.v{
+    background-color: #10dc60;
+    color: #084e24;
+}
+.t{
+    background-color: #ffae00;
+    color: #b37b04;
+}
+.to{
+    background-color: #ff8800;
+    color: #c76f0a;
+}
+.r{
+    background-color: #ff3300;
+    color: #851f06;
+}
+
+ion-grid {
+    --ion-grid-padding:5px;
+    font-size: 10px;
+    font-weight: bolder;
+    color: white;
+}
+ion-item{
+    color:white;
+    font-size:15px;
+    font-weight: bold;
+}
+.pasos {
+    padding: 10px ;
+    margin: 10px;
+    background-color: rgba(138, 137, 137, 0.877);
+    border-radius: 17px 17px 17px 17px;
+    font-size: 15px;
+    font-weight: bolder;
+    color: white;
+}
+ion-thumbnail {
+    --size: 110px;
+}
+
+.peso {
+    margin-top: 15px;
+    font-size: 20px;
+}

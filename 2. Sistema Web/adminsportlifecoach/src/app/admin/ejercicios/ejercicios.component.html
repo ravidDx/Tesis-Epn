@@ -1,0 +1,360 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">Listado de Ejercicios</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="row animated fadeInRight btn-add">
+              <button mat-raised-button class="btn btn-info ml-auto" (click)="newModal()" data-toggle="modal"
+                data-target="#dataModal">
+                <i class="fas fa-plus-circle"></i> Añadir
+              </button>
+              <!--
+                            <button mat-raised-button class="btn btn-info ml-auto" (click)="getDownload()" data-toggle="modal" data-target="#dataModal">
+                                <i class="fas fa-plus-circle"></i> get
+                            </button>
+                            -->
+            </div>
+
+            <br>
+
+            <!-- DATA TABLE -->
+
+            <mat-form-field>
+              <mat-icon matPrefix>search</mat-icon>
+              <input matInput tabindex="1" (keyup)="applyFilter($event.target.value)" placeholder="Busqueda">
+            </mat-form-field>
+
+
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" class="text-center">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Num. </th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{(dataSource.filteredData.indexOf(element)) + 1}}</td>
+                </ng-container>
+
+
+                <!-- Imagen Column -->
+                <ng-container matColumnDef="imagen">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Imagen </th>
+                  <td mat-cell *matCellDef="let element"> <img [src]="element.imagen" class="card-img-small"
+                      alt="imagen"> </td>
+                </ng-container>
+
+
+                <!-- Titulo Column -->
+                <ng-container matColumnDef="titulo">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Ejercicio </th>
+                  <td mat-cell *matCellDef="let element"> {{element.titulo}}</td>
+                </ng-container>
+
+                <!-- Tipo Column -->
+                <ng-container matColumnDef="tipo">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Tipo </th>
+                  <td mat-cell *matCellDef="let element"> {{element.tipo}}</td>
+                </ng-container>
+
+                <!-- Dificultad Column -->
+                <ng-container matColumnDef="dificultad">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Dificultad </th>
+                  <td mat-cell *matCellDef="let element"> {{element.dificultad}}</td>
+                </ng-container>
+
+                <!-- Estado Column -->
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
+                  <td mat-cell *matCellDef="let element">
+
+                    <span *ngIf="element.estado == 'Activo'" class='spanEstado spanActivo'>{{element.estado}}</span>
+                    <span *ngIf="element.estado == 'Inactivo'" class='spanEstado spanInactivo'>{{element.estado}}</span>
+
+                  </td>
+                </ng-container>
+
+
+                <!-- Acciones Column -->
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button title="visualizar" type="button"
+                      [routerLink]="['/admin/ejercicio',element._id ]" class="btn btn-sm btn-outline-success"
+                      data-toggle="modal" data-target="#dataModal"><i class="fas fa-eye" id="iconEdit"></i></button>
+                    
+                      <button *ngIf="element.estado == 'Activo'"  mat-raised-button title="editar" type="button" (click)="editModal(element)"
+                      class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#dataModal">
+                      <i class="fas fa-edit" id="iconEdit"></i></button>
+
+                      <button *ngIf="element.estado == 'Inactivo'"  mat-raised-button title="editar" type="button" (click)="editModal(element)"
+                      class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#dataModal" disabled>
+                      <i class="fas fa-edit" id="iconEdit"></i></button>
+
+                    <button *ngIf="element.estado == 'Activo'" mat-raised-button title="dar de baja" type="button"
+                      (click)="cargarObjectBaja(element, $event)" class="btn btn-sm btn-outline-danger"
+                      data-toggle="modal" data-target="#modalDeleted"> <i class="fas fa-lock-open"
+                        [id]="element._id"></i> <img class='load' src="assets/gif/cargando-loading-031.gif"> </button>
+                    <button *ngIf="element.estado == 'Inactivo'" mat-raised-button title="dar de alta" type="button"
+                      (click)="cargarObjectBaja(element, $event)" class="btn btn-sm btn-outline-danger"
+                      data-toggle="modal" data-target="#modalDeleted"> <i class="fas fa-lock" [id]="element._id"></i>
+                      <img class='load' src="assets/gif/cargando-loading-031.gif"> </button>
+
+                  </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+
+
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- FORMULARIO MODAL -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #eff1f3;">  
+        <h5 class="modal-title" id="exampleModalLabel">
+          <span *ngIf="new == true"><i class="fas fa-running"></i>&nbsp;Nuevo Ejercicio</span>
+          <span *ngIf="new == false"><i class="fas fa-edit"></i>&nbsp;Editar Ejercicio</span>
+
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-entrenamiento" (ngSubmit)="guardar()" #form="ngForm">
+        <div class="modal-body">
+
+
+          <div class="example-container">
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field *ngIf="new == true">
+                  <mat-label>Tipo de ejercicio</mat-label>
+                  <mat-select disableRipple name="tipo" [(ngModel)]="entrenamiento.tipo" multiple #tipo="ngModel"
+                    required>
+                    <mat-option *ngFor="let tipo of tiposEntrenamiento" [value]="tipo.nombre">{{tipo.nombre}}
+                    </mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR TIPO EJERCICIO-->
+                  <mat-error *ngIf="tipo.errors && (tipo.dirty || tipo.touched)">
+                    <span *ngIf="tipo.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="new == false">
+                  <mat-label>Tipo de ejercicio</mat-label>
+                  <mat-select disableRipple name='tipo' [(ngModel)]="entrenamientoEdit.tipo" multiple #type="ngModel"
+                    required>
+                    <mat-option *ngFor="let tipo of tiposEntrenamiento" [value]="tipo.nombre">{{tipo.nombre}}
+                    </mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR TIPO EJERCICIO-->
+                  <mat-error *ngIf="type.errors && (type.dirty || type.touched)">
+                    <span *ngIf="type.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field *ngIf="new == true">
+                  <mat-label>Nivel de dificultad</mat-label>
+                  <mat-select disableRipple [(ngModel)]="entrenamiento.dificultad" name="dificultad" #nivel="ngModel"
+                    required>
+                    <mat-option *ngFor="let dificultad of dificultadList" [value]="dificultad">{{dificultad}}
+                    </mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR NIVEL DIFICULTDAD-->
+                  <mat-error *ngIf="nivel.errors && (nivel.dirty || nivel.touched)">
+                    <span *ngIf="nivel.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="new == false">
+                  <mat-label>Nivel de dificultad</mat-label>
+                  <mat-select disableRipple [(ngModel)]="entrenamientoEdit.dificultad" name="dificultad"
+                    #nivel="ngModel" required>
+                    <mat-option *ngFor="let dificultad of dificultadList" [value]="dificultad">{{dificultad}}
+                    </mat-option>
+                  </mat-select>
+                  <!--MSJ ERROR NIVEL DIFICULTDAD-->
+                  <mat-error *ngIf="nivel.errors && (nivel.dirty || nivel.touched)">
+                    <span *ngIf="nivel.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="example-full-width" *ngIf="new == true">
+                  <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="entrenamiento.titulo"
+                    #title="ngModel" required maxlength="100" #input>
+                  <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
+                  <!--MSJ ERROR TITULO-->
+                  <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                    <span *ngIf="title.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" *ngIf="new == false">
+                  <input matInput placeholder="Titulo" type="text" name="titulo" [(ngModel)]="entrenamientoEdit.titulo"
+                    #title="ngModel" required maxlength="100" #input>
+                  <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
+                  <!--MSJ ERROR TITULO-->
+                  <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+                    <span *ngIf="title.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field *ngIf="new == true">
+                  <textarea matInput placeholder="Beneficios" rows="3" name="objetivo"
+                    [(ngModel)]="entrenamiento.objetivo" #benef="ngModel" required maxlength="256" #input></textarea>
+                  <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+                  <!--MSJ ERROR BEDEFICIOS-->
+                  <mat-error *ngIf="benef.errors && (benef.dirty || benef.touched)">
+                    <span *ngIf="benef.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field *ngIf="new == false">
+                  <textarea matInput placeholder="Beneficios" rows="3" name="objetivo"
+                    [(ngModel)]="entrenamientoEdit.objetivo" #benef="ngModel" required maxlength="256"
+                    #input></textarea>
+                  <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+                  <!--MSJ ERROR BEDEFICIOS-->
+                  <mat-error *ngIf="benef.errors && (benef.dirty || benef.touched)">
+                    <span *ngIf="benef.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-5">
+                <button mat-button color="warn" (click)="onClick()" type="button" *ngIf="new == true">
+                  <mat-icon>file_upload</mat-icon>
+                  {{text}} (.jpg .gif o .png) * 
+                  <p class='file_p' >tamaño máx. (5MB)</p>                 
+                </button>
+                <button mat-button color="warn" (click)="onClick()" type="button" *ngIf="new == false">
+                  <mat-icon>file_upload</mat-icon>
+                  Actualizar imagen (.jpg .gif o .png)
+                  <p class='file_p' >tamaño máx. (5MB)</p>  
+                </button>
+                <br />
+
+                <div *ngIf="new == true" style="text-align: center;">
+                  <a title="Cancel" (click)="cancelFileImg(0)">
+                    <mat-icon style="position:fixed;">cancel</mat-icon>
+                  </a>
+                  <img [src]="entrenamiento.imagen" class="card-img-modal"  />
+
+                </div>
+
+                <div *ngIf="new == false" style="text-align: center;">
+                  <a title="Cancel" (click)="cancelFileImg(1)">
+                    <mat-icon style="position:fixed;">cancel</mat-icon>
+                  </a>
+                  <img [src]="entrenamientoEdit.imagen" class="card-img-modal" />
+
+                </div>
+
+                <input *ngIf="new == true" type="file" id="fileUpload" name="fileUpload" multiple="multiple"
+                  accept="{{accept}}" style="display:none;" (change)="onSelectFile($event,0)" />
+                <input *ngIf="new == false" type="file" id="fileUpload" name="fileUpload" multiple="multiple"
+                  accept="{{accept}}" style="display:none;" (change)="onSelectFile($event,1)" />
+
+              </div>
+
+              <div class="col-md-7">
+
+                Pasos de ejecucion (máx. 4 items)
+                <button mat-button color="primary" class='btn-add btn-ico' (click)="addInstruccion()" type="button"> <i
+                    class="fas fa-plus-circle"></i> </button>
+                <button mat-button color="warn" class='btn-add btn-ico' (click)="deletedInstruccion()" type="button"> <i
+                    class="fas fa-minus-circle"></i> </button>
+
+                <mat-form-field class="add-item" *ngFor="let item of itemsInstrucciones; let i = index">
+                  <span matPrefix>- &nbsp;</span>
+                  
+                  <textarea matInput type="text" name="ingre_{{item.id}}" [(ngModel)]="item.value" #inst="ngModel"
+                    required> </textarea>
+                  <!--MSJ ERROR INSTRUCCIONES-->
+                  <mat-error *ngIf="inst.errors && (inst.dirty || inst.touched)">
+                    <span *ngIf="inst.errors.required">Este campo no puede estar vacío</span>
+                  </mat-error>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+          <button *ngIf="new == true" type="submit" class="btn btn-primary" [hidden]='btnDisabled'
+          [disabled]='form.invalid'>Guardar</button>
+        <button *ngIf="new == false" type="submit" class="btn btn-primary" [hidden]='btnDisabled'
+          [disabled]='form.invalid'>Editar</button>
+        <button *ngIf="load == true" type="submit" class="btn btn-primary" [disabled]='true'>
+          <div class="loader"></div>
+        </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!--Comfirm Modal-->
+<!-- Modal -->
+<div class="modal fade" id="modalDeleted" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{titleConfirm}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="darBaja()">Si</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+   ---------------------------------------
+   -      CREDENCIALES SISTEMA WEB        -
+   ---------------------------------------
+
+    -  SuperAdministrador     
+		
+		usuario:    superadmin@superadmin.com
+		contraseña: superadmin123
+
+    -  Administrador      
+		
+		usuario:    raulbastidas@outlook.com
+		contraseña: admin123
+
+
+   ---------------------------------------
+   -      CREDENCIALES SISTEMA MOVIL     -
+   ---------------------------------------
+
+    -  PARA PRUEBA (deportista)     
+		
+		usuario:    dayanazuri@yopmail.com
+		contraseña: dayanazuri@yopmail.com
+
+
+
+  
+ 
+
+  

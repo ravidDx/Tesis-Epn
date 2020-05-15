@@ -1,0 +1,182 @@
+<ion-header>
+  <ion-toolbar color="shade">
+    <ion-menu-button slot="start" color="light" autoHide="false"></ion-menu-button>
+    <ion-title text-center class="title">Home</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" text=""></ion-back-button>
+    </ion-buttons>
+    <!--<a slot="end" routerLink="/news">
+      <ion-icon color="light" name="notifications-outline"></ion-icon>
+    </a>-->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh()" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="bkg">
+    <ion-label color="light">
+      <h1>SIGUENOS EN NUESRTAS REDES SOCIALES</h1>
+    </ion-label>
+    <ion-note color="light">Obten ejercicios y recetas para cambiar tu estilo de vida</ion-note>
+    <ion-slides [options]="sliderConfig">
+      <ion-slide>
+          <ion-card>
+              <img src="https://scontent.fuio7-1.fna.fbcdn.net/v/t1.0-9/p960x960/60887794_665954467169977_944678924338593792_o.jpg?_nc_cat=100&_nc_ohc=NT2lZwexRIgAQmXy5n0LW0JMctfjCnggrchGAJIHHbDNelbDiQnznapGw&_nc_ht=scontent.fuio7-1.fna&oh=f2cf433855f2fa06a4631b011164d2ca&oe=5E805882" />
+              <ion-card-header color="light">
+                <ion-card-subtitle class="ion-padding-bottom">
+                    <ion-icon class="rs" name="logo-facebook"></ion-icon><br>
+                    @sportcoach18</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+      </ion-slide>
+      <ion-slide>
+          <ion-card>
+              <img src="https://instagram.fuio7-1.fna.fbcdn.net/vp/612f70799a8961b09e160e2c79264bf0/5E6FE910/t51.2885-19/s150x150/67415208_1293046774189420_3541668377749618688_n.jpg?_nc_ht=instagram.fuio7-1.fna.fbcdn.net" />
+              <ion-card-header color="light">
+                <ion-card-subtitle class="ion-padding-bottom">
+                    <ion-icon class="rs" name="logo-instagram"></ion-icon><br>
+                    @sportcoach18</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+      </ion-slide>
+      <ion-slide>
+          <ion-card>
+              <img src="https://pbs.twimg.com/profile_images/1034111011199049728/p6sMd2al_400x400.jpg" />
+              <ion-card-header color="light">
+                <ion-card-subtitle class="ion-padding-bottom">
+                    <ion-icon class="rs" name="logo-twitter"></ion-icon><br>
+                    @sportcoach18</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <!--CONTIENE EL CALCULO Y TABLA DE IMC-->
+  <div *ngIf="gimcm" class="pasos">
+    <ion-item>
+      <ion-label>Tu peso actual : {{usuario.peso | number:'1.1-1' }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tu IMC personal : {{imc | number:'1.1-1' }}</ion-label>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3" text-center class="y">
+          BAJO
+        </ion-col>
+        <ion-col size="3" text-center class="v">
+          NORMAL
+        </ion-col>
+        <ion-col size="3" text-center class="to">
+          SOBREPESO
+        </ion-col>
+        <ion-col size="3" text-center class="r">
+          OBESIDAD
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" text-center>
+          0.0 - 19.0
+        </ion-col>
+        <ion-col size="3" text-center>
+          19.1 - 24.0
+        </ion-col>
+        <ion-col size="3" text-center>
+          24.1 - 29.0
+        </ion-col>
+        <ion-col size="3" text-center>
+          29.1 - 39.0+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" text-center class="y"> </ion-col>
+        <ion-col size="3" text-center class="v"></ion-col>
+        <ion-col size="3" text-center class="to"> </ion-col>
+        <ion-col size="3" text-center class="r"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="gimch" class="pasos">
+    <ion-item>
+      <ion-label>Tu peso actual : {{usuario.peso | number:'1.1-1' }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tu IMC personal : {{imc | number:'1.1-1' }}</ion-label>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3" text-center class="y">
+          BAJO
+        </ion-col>
+        <ion-col size="3" text-center class="v">
+          NORMAL
+        </ion-col>
+        <ion-col size="3" text-center class="to">
+          SOBREPESO
+        </ion-col>
+        <ion-col size="3" text-center class="r">
+          OBESIDAD
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" text-center>
+          0.0 - 20.0
+        </ion-col>
+        <ion-col size="3" text-center>
+          20.1 - 25.0
+        </ion-col>
+        <ion-col size="3" text-center>
+          25.1 - 30.0
+        </ion-col>
+        <ion-col size="3" text-center>
+          30.1 - 40.0+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" text-center class="y"> </ion-col>
+        <ion-col size="3" text-center class="v"></ion-col>
+        <ion-col size="3" text-center class="to"> </ion-col>
+        <ion-col size="3" text-center class="r"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!--**********************************-->
+  <!-- VISUALIZACION PESO IDEAL -->
+  <div class="pasos">
+    <ion-row>
+      <ion-col size="5">
+        <ion-thumbnail>
+          <img src="assets/icon/bascula.png">
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col>
+        <br>
+        <ion-label class="peso title">Tu Peso Ideal</ion-label>
+        <br>
+        <br>
+        <ion-label color="dark" class="peso title">{{p_ideal | number:'1.1-1' }} Kg</ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+
+
+  <!--<div class="contenedor">
+    <img src="../../../assets/video/images.jfif">
+    <div class="texto-encima">Tipo de ejercicio </div>
+    <div class="text2">NOMBRE NUEVO EJERCICIO</div>
+  </div><br>
+  <div class="contenedor">
+    <img src="../../../assets/video/unnamed.png">
+    <div class="texto-encima">Tipo de ejercicio </div>
+    <div class="text2">NOMBRE NUEVO EJERCICIO</div>
+  </div><br>
+  <div class="contenedor">
+    <img src="../../../assets/video/app_centr.jpg">
+    <div class="texto-encima">Tipo de ejercicio </div>
+    <div class="text2">NOMBRE NUEVO EJERCICIO</div>
+  </div>-->
+</ion-content>

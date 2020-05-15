@@ -1,0 +1,7 @@
+{
+  "name": "Fitapp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,147 @@
+<ion-header>
+    <ion-toolbar color="shade">
+      <ion-title class="title">Perfil</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button color="light" text=""></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <form [formGroup]="prof_Frm" (ngSubmit)="update()">
+      <ion-row>
+        <ion-col *ngIf="!photo">
+          <ion-avatar (click)="AccessGallery()">
+            <img [src]=deportista.foto>
+          </ion-avatar>
+          <!--<p>{{photo}} en usuario </p>-->
+        </ion-col>
+        <ion-col *ngIf="photo">
+          <ion-avatar (click)="AccessGallery()">
+            <img [src]=image>
+          </ion-avatar>
+          <!--<p>{{photo}} en picker </p>-->
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label class="font" position="stacked">NOMBRE</ion-label>
+            <ion-input formControlName="nombre" ></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <div *ngFor="let validation of validation_messages.nombre">
+              <span class="error-message" *ngIf="prof_Frm.get('nombre').hasError(validation.type)
+                           && (prof_Frm.get('nombre').dirty || prof_Frm.get('nombre').touched)">
+                <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                {{ validation.message }}
+              </span>
+            </div>
+          </div>
+          <ion-item>
+            <ion-label class="font" position="stacked">APELLIDO</ion-label>
+            <ion-input formControlName="apellido" ></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <div *ngFor="let validation of validation_messages.apellido">
+              <span class="error-message" *ngIf="prof_Frm.get('apellido').hasError(validation.type)
+                           && (prof_Frm.get('apellido').dirty || prof_Frm.get('apellido').touched)">
+                <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+                {{ validation.message }}
+              </span>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--<ion-col text-center>
+      <ion-button>
+        <ion-icon name="image"></ion-icon>
+      </ion-button>
+    </ion-col>-->
+      <ion-segment formControlName="genero"  class="genero" margin-top>
+        <ion-segment-button value="mujer" class="no-margin">
+          <ion-icon class="icon" name="female"></ion-icon>
+          <ion-label class="text">Mujer</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="hombre">
+          <ion-icon class="icon" name="male"></ion-icon>
+          <ion-label class="text">Hombre</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <ion-item>
+        <ion-label class="font" position="stacked">EMAIL</ion-label>
+        <ion-input name="foto" value={{deportista.email}} disabled></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-padding-end ion-margin-end font" position="stacked">OBJETIVO</ion-label>
+        <ion-select formControlName="objetivo"  okText="Aceptar" cancelText="Cancel">
+          <ion-select-option value="perder peso">Perder peso y Quemar grasa</ion-select-option>
+          <ion-select-option value="ganar masa muscular">Ganar masa muscular y Fuerza</ion-select-option>
+          <ion-select-option value="mantener peso">Vivir de forma saludable y Mantener peso</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="validation-errors">
+        <div *ngFor="let validation of validation_messages.objetivo">
+          <span class="error-message" *ngIf="prof_Frm.get('objetivo').hasError(validation.type)
+                         && (prof_Frm.get('objetivo').dirty || prof_Frm.get('objetivo').touched)">
+            <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+            {{ validation.message }}
+          </span>
+        </div>
+      </div>
+      <ion-item>
+        <ion-label class="ion-padding-end ion-margin-end font">PESO</ion-label>
+        <ion-input text-end type="text" formControlName="peso" >
+        </ion-input>
+        <ion-note slot="end" class="mg">Kg</ion-note>
+      </ion-item>
+      <div class="validation-errors">
+        <div *ngFor="let validation of validation_messages.peso">
+          <span class="error-message" *ngIf="prof_Frm.get('peso').hasError(validation.type)
+                             && (prof_Frm.get('peso').dirty || prof_Frm.get('peso').touched)">
+            <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+            {{ validation.message }}
+          </span>
+        </div>
+      </div>
+      <ion-item>
+        <ion-label class="ion-padding-end ion-margin-end font">ALTURA</ion-label>
+        <ion-input text-end type="text" formControlName="altura" >
+        </ion-input>
+        <ion-note slot="end" class="mg">cm</ion-note>
+      </ion-item>
+      <div class="validation-errors">
+        <div *ngFor="let validation of validation_messages.altura">
+          <span class="error-message" *ngIf="prof_Frm.get('altura').hasError(validation.type)
+                         && (prof_Frm.get('altura').dirty || prof_Frm.get('altura').touched)">
+            <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+            {{ validation.message }}
+          </span>
+        </div>
+      </div>
+      <ion-item>
+        <ion-label class="ion-padding-end ion-margin-end font">FECHA</ion-label>
+        <ion-datetime text-end displayFormat="D MMMM YYYY" formControlName="fechaN" 
+          placeholder="Elige"  min="1920" max="2001">
+        </ion-datetime>
+      </ion-item>
+      <div class="validation-errors">
+        <div *ngFor="let validation of validation_messages.fechaN">
+          <span class="error-message" *ngIf="prof_Frm.get('fechaN').hasError(validation.type)
+                         && (prof_Frm.get('fechaN').dirty || prof_Frm.get('fechaN').touched)">
+            <ion-icon class="error-message" name="information-circle-outline"></ion-icon>
+            {{ validation.message }}
+          </span>
+        </div>
+      </div>
+      <ion-row padding-bottom>
+        <ion-col class="ion-margin-top ion-text-center ">
+          <ion-button type="submit" color="success" shape="round" expand="full" fill="solid">GUARDAR
+          </ion-button>
+        </ion-col>
+        <!--<ion-col class="ion-margin-top ion-text-center ">
+          <ion-button (click)="msj_delete()" color="danger" shape="round" expand="full" fill="solid">ELIMINAR CUENTA
+          </ion-button>
+        </ion-col>-->
+      </ion-row>
+  
+    </form>
+  </ion-content>
