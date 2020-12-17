@@ -46,7 +46,7 @@
     "chartist": "0.11.0",
     "classlist.js": "1.1.20150312",
     "core-js": "2.4.1",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.19",
     "datatables.net-responsive": "^2.2.3",
     "express": "4.16.3",
