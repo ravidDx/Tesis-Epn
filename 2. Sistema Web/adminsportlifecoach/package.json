@@ -33,7 +33,7 @@
     "@angular/router": "7.0.2",
     "@ng-bootstrap/ng-bootstrap": "^4.1.1",
     "@syncfusion/ej2-angular-calendars": "^17.1.41",
-    "ajv": "6.4.0",
+    "ajv": "6.12.3",
     "angular-datatables": "^7.0.0",
     "angular-material-fileupload": "^2.0.0",
     "angular-progress-bar": "^1.0.9",
